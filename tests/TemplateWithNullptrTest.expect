@@ -1,0 +1,30 @@
+class A
+{
+  
+  public: 
+  inline void SomeMethod()
+  {
+  }
+  
+};
+
+
+template<class T, void (T::*SomeMethod)() = nullptr>
+class B
+{
+};
+
+/* First instantiated from: TemplateWithNullptrTest.cpp:15 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class B<A, nullptr>
+{
+  public: 
+  // inline constexpr B() noexcept = default;
+};
+
+#endif
+
+B<A, nullptr> b1;
+
+B<A, nullptr> b3;

@@ -1,0 +1,25 @@
+template<typename T>
+class Foo
+{
+};
+
+/* First instantiated from: ClassTemplateWithoutDefinitionTest.cpp:11 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Foo<double>
+{
+  public: 
+  // inline constexpr Foo() noexcept = default;
+};
+
+#endif
+
+using IntFoo = Foo<int>;
+
+using DoubleFoo = Foo<double>;
+
+int main()
+{
+  Foo<double> df;
+  return 0;
+}

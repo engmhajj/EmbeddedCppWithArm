@@ -1,0 +1,29 @@
+class Test
+{
+  
+  public: 
+  template<typename T>
+  class Tmpl
+  {
+    T m;
+  };
+  
+  /* First instantiated from: ClassTemplateDeclTest.cpp:16 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class Tmpl<int>
+  {
+    int m;
+    public: 
+    // inline Tmpl() noexcept = default;
+  };
+  
+  #endif
+};
+
+
+int main()
+{
+  Test::Tmpl<int> x;
+  return 0;
+}

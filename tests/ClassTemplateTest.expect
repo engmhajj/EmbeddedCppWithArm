@@ -1,0 +1,56 @@
+#define INSIGHTS_USE_TEMPLATE
+
+template<typename T>
+class Foo
+{
+  
+  public: 
+  inline Foo() = default;
+  
+  protected: 
+  inline bool Mo()
+  {
+    return false;
+  }
+  
+};
+
+/* First instantiated from: ClassTemplateTest.cpp:12 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Foo<int>
+{
+  
+  public: 
+  inline constexpr Foo() noexcept = default;
+  
+  protected: 
+  inline bool Mo()
+  {
+    return false;
+  }
+  
+  public: 
+};
+
+#endif
+
+class Bar : public Foo<int>
+{
+  
+  public: 
+  inline bool Do()
+  {
+    return /* static_cast<Foo<int> *>(this)-> */ Mo();
+  }
+  
+  // inline constexpr Bar() noexcept = default;
+};
+
+
+int main()
+{
+  Bar bar;
+  bar.Do();
+  return 0;
+}

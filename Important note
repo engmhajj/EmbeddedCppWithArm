@@ -1,0 +1,6 @@
+ static int s_variable = 0; //static variable don't live on the stack neither on the heap. Static variable are allocated in the binary
+ // this is a function pointer: int name(int,int) which is the callback
+     [[maybe_unused]]
+             int (*op)(int, int);
+
+ // when declaring attribute inside a class we should assign them from greater size to smaller size as to avoid fragmentation

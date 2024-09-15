@@ -1,0 +1,21 @@
+namespace Test [[deprecated("")]] 
+{
+  void Fun()
+  {
+  }
+  
+}
+
+enum class Color : int
+{
+  Red [[deprecated("")]] , 
+  Green [[deprecated("")]]  = 2
+};
+
+
+int main()
+{
+  Test::Fun();
+  Color cl = Color::Red;
+  return 0;
+}

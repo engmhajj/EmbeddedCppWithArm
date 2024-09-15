@@ -1,0 +1,30 @@
+struct alignas(16) AlignedStruct
+{
+  float data[4];
+};
+
+
+alignas(128) char alignedArray[128];
+
+template<typename ... Ts>
+struct AlignedStructWithPack
+{
+  alignas(alignof(Ts)...) char data;
+};
+
+/* First instantiated from: AlignAsTest.cpp:16 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct AlignedStructWithPack<int, char, double>
+{
+  alignas(int) alignas(char) alignas(double) char data;
+  // inline AlignedStructWithPack() noexcept = default;
+};
+
+#endif
+
+int main()
+{
+  AlignedStructWithPack<int, char, double> a;
+  return 0;
+}

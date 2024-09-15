@@ -1,0 +1,40 @@
+#define INSIGHTS_USE_TEMPLATE
+
+namespace UnresolvedLookupExprTest
+{
+  template<typename T>
+  class Test
+  {
+    
+    public: 
+    inline Test()
+    {
+      const char * f = __func__;
+    }
+    
+  };
+  
+  /* First instantiated from: UnresolvedPredefinedExprTest.cpp:20 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class Test<int>
+  {
+    
+    public: 
+    inline Test()
+    {
+      const char * f = "Test";
+    }
+    
+  };
+  
+  #endif
+  
+}
+
+int main()
+{
+  const char * f = "main";
+  UnresolvedLookupExprTest::Test<int> t = UnresolvedLookupExprTest::Test<int>();
+  return 0;
+}

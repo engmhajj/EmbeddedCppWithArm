@@ -1,0 +1,54 @@
+#define INSIGHTS_USE_TEMPLATE
+
+static int x[2] = {1, 2};
+
+template<typename T, unsigned int SIZE>
+class array
+{
+  
+  private: 
+  T (&data)[SIZE];
+  
+  public: 
+  inline array()
+  : data(x)
+  {
+  }
+  
+  inline array(T (&reference)[SIZE])
+  : data(reference)
+  {
+  }
+  
+};
+
+/* First instantiated from: FieldDeclArrayRefTest.cpp:17 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class array<int, 2>
+{
+  
+  private: 
+  int (&data)[2];
+  
+  public: 
+  inline array()
+  : data{x}
+  {
+  }
+  
+  inline array(int (&reference)[2])
+  : data{reference}
+  {
+  }
+  
+};
+
+#endif
+
+int main()
+{
+  array<int, 2> a = array<int, 2>();
+  array<int, 2> ab = array<int, 2>{x};
+  return 0;
+}

@@ -1,0 +1,14 @@
+enum class icon_id : int
+{
+  action, 
+  action2
+};
+
+
+int to_int(icon_id id)
+{
+  switch(id) {
+    case icon_id::action: return 0;
+    case icon_id::action2: return 0;
+  }
+}

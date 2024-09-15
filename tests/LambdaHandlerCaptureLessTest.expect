@@ -1,0 +1,53 @@
+int main()
+{
+      
+  class __lambda_4_28
+  {
+    public: 
+    template<class type_parameter_0_0, class type_parameter_0_1>
+    inline /*constexpr */ auto operator()(type_parameter_0_0 a, type_parameter_0_1 b) const
+    {
+      return a + b;
+    }
+    
+    #ifdef INSIGHTS_USE_TEMPLATE
+    template<>
+    inline /*constexpr */ int operator()<int, char>(int a, char b) const
+    {
+      return a + static_cast<int>(b);
+    }
+    #endif
+    
+    
+    /* First instantiated from: LambdaHandlerCaptureLessTest.cpp:4 */
+    #ifdef INSIGHTS_USE_TEMPLATE
+    using retType_4_28 = int (*)(int, char);
+    template<>
+    inline constexpr operator retType_4_28 () const noexcept
+    {
+      return __invoke;
+    }
+    #endif
+    
+    private: 
+    template<class type_parameter_0_0, class type_parameter_0_1>
+    static inline /*constexpr */ auto __invoke(type_parameter_0_0 a, type_parameter_0_1 b)
+    {
+      return __lambda_4_28{}.operator()<type_parameter_0_0, type_parameter_0_1>(a, b);
+    }
+    
+    #ifdef INSIGHTS_USE_TEMPLATE
+    template<>
+    static inline /*constexpr */ int __invoke<int, char>(int a, char b)
+    {
+      return __lambda_4_28{}.operator()<int, char>(a, b);
+    }
+    #endif
+    
+    
+  };
+  
+  using FuncPtr_4 = int (*)(int, char);
+  FuncPtr_4 fp = __lambda_4_28{}.operator __lambda_4_28::retType_4_28();
+  return 0;
+}

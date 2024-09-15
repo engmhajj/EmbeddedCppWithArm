@@ -1,0 +1,113 @@
+#define INSIGHTS_USE_TEMPLATE
+
+template<typename T>
+struct A
+{
+  void foo(int);
+  
+};
+
+/* First instantiated from: ClassOperatorHandler7Test.cpp:22 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct A<int>
+{
+  void foo(int);
+  
+  // inline constexpr A() noexcept = default;
+};
+
+#endif
+/* First instantiated from: ClassOperatorHandler7Test.cpp:22 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct A<int *>
+{
+  struct B
+  {
+    void operator()(int);
+    
+    // inline constexpr B() noexcept = default;
+  };
+  
+  B foo;
+  // inline constexpr A() noexcept = default;
+};
+
+#endif
+
+template<typename T>
+struct A<T *>
+{
+  struct B
+  {
+    void operator()(int);
+    
+  };
+  
+  B foo;
+};
+
+
+template<typename T>
+void foo()
+{
+  A<T> a;
+  a.foo(3);
+}
+
+/* First instantiated from: ClassOperatorHandler7Test.cpp:26 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void foo<int>()
+{
+  A<int> a;
+  a.foo(3);
+}
+#endif
+
+
+/* First instantiated from: ClassOperatorHandler7Test.cpp:27 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void foo<int *>()
+{
+  A<int *> a;
+  a.foo.operator()(3);
+}
+#endif
+
+
+#include <vector>
+
+template<typename T>
+bool foo2()
+{
+  std::vector<T> vec;
+  return vec.empty();
+}
+
+/* First instantiated from: ClassOperatorHandler7Test.cpp:52 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+bool foo2<int>()
+{
+  std::vector<int, std::allocator<int> > vec = std::vector<int, std::allocator<int> >();
+  return vec.empty();
+}
+#endif
+
+
+bool bar()
+{
+  std::vector<int, std::allocator<int> > vec = std::vector<int, std::allocator<int> >();
+  return vec.empty();
+}
+
+int main()
+{
+  foo<int>();
+  foo<int *>();
+  foo2<int>();
+  return 0;
+}

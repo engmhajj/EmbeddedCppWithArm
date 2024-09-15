@@ -1,0 +1,10 @@
+#include <map>
+
+int main()
+// no open curly bracket here
+    using Map = std::map<int, bool>;
+    int m;
+
+    auto __7 = /* INSIGHTS-TODO: CodeGenerator.cpp:3857 stmt: RecoveryExpr */.insert({1, true});
+
+}

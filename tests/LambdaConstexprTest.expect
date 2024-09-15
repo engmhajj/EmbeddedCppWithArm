@@ -1,0 +1,24 @@
+void Test()
+{
+  constexpr const int Size = 3;
+    
+  class __lambda_4_18
+  {
+    public: 
+    inline void operator()() const
+    {
+      int Dim[3];
+    }
+    
+    private: 
+    const int Size;
+    
+    public:
+    __lambda_4_18(const int & _Size)
+    : Size{_Size}
+    {}
+    
+  };
+  
+  __lambda_4_18 Lambda = __lambda_4_18{Size};
+}

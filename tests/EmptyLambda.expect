@@ -1,0 +1,27 @@
+void foo()
+{
+    
+  class __lambda_2_1
+  {
+    public: 
+    inline /*constexpr */ void operator()() const
+    {
+    }
+    
+    using retType_2_1 = void (*)();
+    inline constexpr operator retType_2_1 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline /*constexpr */ void __invoke()
+    {
+      __lambda_2_1{}.operator()();
+    }
+    
+    
+  } __lambda_2_1{};
+  
+  __lambda_2_1.operator()();
+}

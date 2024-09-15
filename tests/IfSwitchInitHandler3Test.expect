@@ -1,0 +1,30 @@
+int Open()
+{
+  return 0;
+}
+int Write()
+{
+  return 0;
+}
+
+int Foo()
+{
+  {
+    int ret = Open();
+    if(static_cast<bool>(ret)) {
+      if(1 != ret) {
+        return ret;
+      } 
+      
+    } 
+    
+  }
+  
+  return 1;
+}
+
+int main()
+{
+  Foo();
+  return 0;
+}

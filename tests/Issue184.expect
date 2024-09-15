@@ -1,0 +1,91 @@
+#include <string>
+#include <unordered_set>
+
+class Customer
+{
+  std::basic_string<char, std::char_traits<char>, std::allocator<char> > name;
+  
+  public: 
+  inline Customer(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & n)
+  : name{std::basic_string<char, std::char_traits<char>, std::allocator<char> >(n)}
+  {
+  }
+  
+  inline std::basic_string<char, std::char_traits<char>, std::allocator<char> > getName() const
+  {
+    return std::basic_string<char, std::char_traits<char>, std::allocator<char> >(this->name);
+  }
+  
+  // inline ~Customer() noexcept = default;
+};
+
+
+struct CustomerEq
+{
+  inline bool operator()(const Customer & c0, const Customer & c1) const
+  {
+    return std::operator==(c0.getName(), c1.getName());
+  }
+  
+  // inline constexpr CustomerEq() noexcept = default;
+};
+
+
+struct CustomerHash
+{
+  inline std::size_t operator()(const Customer & c) const
+  {
+    return static_cast<const std::__string_hash<char, std::allocator<char> >&>(std::hash<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >()).operator()(c.getName());
+  }
+  
+  // inline constexpr CustomerHash() noexcept = default;
+};
+
+
+template<typename ... Bases>
+struct ManyParentsWithOperator : public Bases...
+{
+  using Bases::operator()...;
+};
+
+/* First instantiated from: is_empty.h:22 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct ManyParentsWithOperator<CustomerHash, CustomerEq> : public CustomerHash, public CustomerEq
+{
+  using CustomerHash::operator();
+  // inline std::size_t CustomerHash::operator()(const Customer & c) const;
+  
+  using CustomerEq::operator();
+  // inline bool CustomerEq::operator()(const Customer & c0, const Customer & c1) const;
+  
+  // inline constexpr ManyParentsWithOperator() noexcept = default;
+};
+
+#endif
+/* First instantiated from: is_empty.h:22 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct ManyParentsWithOperator<CustomerEq, CustomerHash> : public CustomerEq, public CustomerHash
+{
+  using CustomerEq::operator();
+  // inline bool CustomerEq::operator()(const Customer & c0, const Customer & c1) const;
+  
+  using CustomerHash::operator();
+  // inline std::size_t CustomerHash::operator()(const Customer & c) const;
+  
+  // inline constexpr ManyParentsWithOperator() noexcept = default;
+};
+
+#endif
+
+int main()
+{
+  std::unordered_set<Customer, CustomerHash, CustomerEq, std::allocator<Customer> > set1 = std::unordered_set<Customer, CustomerHash, CustomerEq, std::allocator<Customer> >();
+  std::unordered_set<Customer, ManyParentsWithOperator<CustomerHash, CustomerEq>, ManyParentsWithOperator<CustomerHash, CustomerEq>, std::allocator<Customer> > set2 = std::unordered_set<Customer, ManyParentsWithOperator<CustomerHash, CustomerEq>, ManyParentsWithOperator<CustomerHash, CustomerEq>, std::allocator<Customer> >();
+  std::unordered_set<Customer, ManyParentsWithOperator<CustomerEq, CustomerHash>, ManyParentsWithOperator<CustomerEq, CustomerHash>, std::allocator<Customer> > set3 = std::unordered_set<Customer, ManyParentsWithOperator<CustomerEq, CustomerHash>, ManyParentsWithOperator<CustomerEq, CustomerHash>, std::allocator<Customer> >();
+  set1.emplace<const char (&)[5]>("Test");
+  set2.emplace<const char (&)[5]>("Test");
+  set3.emplace<const char (&)[5]>("Test");
+  return 0;
+}

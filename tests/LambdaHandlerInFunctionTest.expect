@@ -1,0 +1,80 @@
+#include <cstdio>
+
+template<typename T>
+void Test(T && t)
+{
+}
+
+/* First instantiated from: LambdaHandlerInFunctionTest.cpp:10 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void Test<__lambda_10_10>(__lambda_10_10 && t)
+{
+}
+#endif
+
+
+/* First instantiated from: LambdaHandlerInFunctionTest.cpp:12 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void Test<int>(int && t)
+{
+}
+#endif
+
+
+int main()
+{
+    
+  class __lambda_10_10
+  {
+    public: 
+    inline /*constexpr */ void operator()() const
+    {
+      printf("Hello");
+    }
+    
+    using retType_10_10 = auto (*)() -> void;
+    inline constexpr operator retType_10_10 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline /*constexpr */ void __invoke()
+    {
+      __lambda_10_10{}.operator()();
+    }
+    
+    
+  };
+  
+  Test(__lambda_10_10{});
+      
+  class __lambda_12_10
+  {
+    public: 
+    inline /*constexpr */ int operator()() const
+    {
+      printf("Bello");
+      return 1;
+    }
+    
+    using retType_12_10 = auto (*)() -> int;
+    inline constexpr operator retType_12_10 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline /*constexpr */ int __invoke()
+    {
+      return __lambda_12_10{}.operator()();
+    }
+    
+    
+  } __lambda_12_10{};
+  
+  Test(__lambda_12_10.operator()());
+  return 0;
+}

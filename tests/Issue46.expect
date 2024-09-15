@@ -1,0 +1,51 @@
+
+class __lambda_1_10
+{
+  public: 
+  inline /*constexpr */ int operator()() const
+  {
+    return 5;
+  }
+  
+  using retType_1_10 = int (*)();
+  inline constexpr operator retType_1_10 () const noexcept
+  {
+    return __invoke;
+  };
+  
+  private: 
+  static inline /*constexpr */ int __invoke()
+  {
+    return __lambda_1_10{}.operator()();
+  }
+  
+  
+};
+
+__lambda_1_10 x = __lambda_1_10{};
+
+
+class __lambda_5_11
+{
+  public: 
+  inline /*constexpr */ int operator()(int b) const
+  {
+    return b * a;
+  }
+  
+  private: 
+  int a;
+  
+  public:
+  __lambda_5_11(const int & _a)
+  : a{_a}
+  {}
+  
+};
+
+__lambda_5_11 x2 = __lambda_5_11{5};
+
+int main()
+{
+  return 0;
+}

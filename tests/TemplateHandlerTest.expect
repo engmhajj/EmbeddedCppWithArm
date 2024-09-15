@@ -1,0 +1,209 @@
+#include <iostream>
+
+template<typename T>
+inline constexpr T min(const T & a, const T & b)
+{
+  return (a < b) ? a : b;
+}
+
+/* First instantiated from: TemplateHandlerTest.cpp:55 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+inline constexpr int min<int>(const int & a, const int & b)
+{
+  return (a < b) ? a : b;
+}
+#endif
+
+
+/* First instantiated from: TemplateHandlerTest.cpp:59 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+inline constexpr double min<double>(const double & a, const double & b)
+{
+  return (a < b) ? a : b;
+}
+#endif
+
+
+template<typename T>
+static T max(const T & a, const T & b)
+{
+  return (a > b) ? a : b;
+}
+
+/* First instantiated from: TemplateHandlerTest.cpp:67 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int max<int>(const int & a, const int & b)
+{
+  return (a > b) ? a : b;
+}
+#endif
+
+
+/* First instantiated from: TemplateHandlerTest.cpp:68 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+double max<double>(const double & a, const double & b)
+{
+  return (a > b) ? a : b;
+}
+#endif
+
+
+template<typename T>
+class Template
+{
+  
+  public: 
+  inline Template(const T & x)
+  : mX{x}
+  {
+  }
+  
+  inline T Get() const
+  {
+    return this->mX;
+  }
+  
+  
+  private: 
+  const T mX;
+};
+
+/* First instantiated from: TemplateHandlerTest.cpp:61 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Template<int>
+{
+  
+  public: 
+  inline Template(const int & x)
+  : mX{x}
+  {
+  }
+  
+  inline int Get() const;
+  
+  
+  private: 
+  const int mX;
+  public: 
+};
+
+#endif
+/* First instantiated from: TemplateHandlerTest.cpp:63 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Template<double>
+{
+  
+  public: 
+  inline Template(const double & x)
+  : mX{x}
+  {
+  }
+  
+  inline double Get() const;
+  
+  
+  private: 
+  const double mX;
+  public: 
+};
+
+#endif
+
+void tprintf(const char * format)
+{
+  std::operator<<(std::cout, format);
+}
+
+template<typename T, typename ... Targs>
+void tprintf(const char * format, T value, Targs... Fargs)
+{
+  for(; static_cast<int>(*format) != static_cast<int>('\0'); format++) {
+    if(static_cast<int>(*format) == static_cast<int>('%')) {
+      std::cout << value;
+      tprintf(format + 1, Fargs... );
+      return;
+    } 
+    
+    std::operator<<(std::cout, *format);
+  }
+  
+}
+
+/* First instantiated from: TemplateHandlerTest.cpp:65 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void tprintf<const char *, char, int>(const char * format, const char * value, char __Fargs2, int __Fargs3)
+{
+  for(; static_cast<int>(*format) != static_cast<int>('\0'); format++) {
+    if(static_cast<int>(*format) == static_cast<int>('%')) {
+      std::operator<<(std::cout, value);
+      tprintf(format + 1, __Fargs2, __Fargs3);
+      return;
+    } 
+    
+    std::operator<<(std::cout, *format);
+  }
+  
+}
+#endif
+
+
+/* First instantiated from: TemplateHandlerTest.cpp:44 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void tprintf<char, int>(const char * format, char value, int __Fargs2)
+{
+  for(; static_cast<int>(*format) != static_cast<int>('\0'); format++) {
+    if(static_cast<int>(*format) == static_cast<int>('%')) {
+      std::operator<<(std::cout, value);
+      tprintf(format + 1, __Fargs2);
+      return;
+    } 
+    
+    std::operator<<(std::cout, *format);
+  }
+  
+}
+#endif
+
+
+/* First instantiated from: TemplateHandlerTest.cpp:44 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void tprintf<int>(const char * format, int value)
+{
+  for(; static_cast<int>(*format) != static_cast<int>('\0'); format++) {
+    if(static_cast<int>(*format) == static_cast<int>('%')) {
+      std::cout.operator<<(value);
+      tprintf(format + 1);
+      return;
+    } 
+    
+    std::operator<<(std::cout, *format);
+  }
+  
+}
+#endif
+
+
+int main()
+{
+  int a = 1;
+  int b = 2;
+  int mi = min(a, b);
+  double ad = 2.3999999999999999;
+  double bd = 3.3999999999999999;
+  double md = min(ad, bd);
+  Template<int> w = Template<int>{2};
+  Template<double> ww = Template<double>{3.0};
+  tprintf("% world% %\n", "Hello", '!', 123);
+  int ma1 = max(1, 2);
+  double ma2 = max(2.0, 4.0);
+  return 0;
+}

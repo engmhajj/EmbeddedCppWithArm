@@ -1,0 +1,32 @@
+class Foo
+{
+  
+  public: 
+  inline Foo(int x)
+  : mX{x}
+  {
+  }
+  
+  int mX;
+};
+
+
+bool operator==(const Foo & left, const Foo & right)
+{
+  return left.mX == right.mX;
+}
+
+
+int main()
+{
+  Foo f1 = Foo{1};
+  Foo f2 = Foo{2};
+  const bool b = operator==(f1, f2);
+  if(b) {
+    return 0;
+  } else {
+    return 1;
+  } 
+  
+  return 0;
+}

@@ -1,0 +1,25 @@
+class NullToMemberPtrTest
+{
+  
+  public: 
+  inline int Fun(int)
+  {
+    return 1;
+  }
+  
+  int mMember;
+};
+
+
+int main()
+{
+  using MemberVarPtr_12 = int NullToMemberPtrTest::*;
+  MemberVarPtr_12 mMember1 = static_cast<int NullToMemberPtrTest::*>(nullptr);
+  using MemberVarPtr_14 = int NullToMemberPtrTest::*;
+  MemberVarPtr_14 mMember2 = static_cast<int NullToMemberPtrTest::*>(0);
+  using MemberVarPtr_16 = int (NullToMemberPtrTest::*)(int);
+  MemberVarPtr_16 Func1 = static_cast<int (NullToMemberPtrTest::*)(int)>(nullptr);
+  using MemberVarPtr_18 = int (NullToMemberPtrTest::*)(int);
+  MemberVarPtr_18 Func2 = static_cast<int (NullToMemberPtrTest::*)(int)>(0);
+  return 0;
+}

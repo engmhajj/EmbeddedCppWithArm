@@ -1,0 +1,129 @@
+template<typename BT>
+struct Foo
+{
+  BT raw;
+  inline Foo() = default;
+  inline Foo(const Foo<BT> & v) = default;
+  inline constexpr Foo(BT v)
+  : BT(v)
+  {
+  }
+  
+  inline constexpr operator BT () const
+  {
+    return this->raw;
+  }
+  
+  inline Foo<BT> & operator=(const Foo<BT> & rhs) = default;
+  inline Foo<BT> & operator=(BT v)
+  {
+    this->raw = v;
+    return *this;
+  }
+  
+  inline void operator=(BT v) volatile
+  {
+    this->raw = v;
+  }
+  
+};
+
+/* First instantiated from: CharLiteralTest.cpp:60 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct Foo<char>
+{
+  char raw;
+  inline Foo() noexcept = default;
+  inline constexpr Foo(const Foo<char> & v) /* noexcept */ = default;
+  inline constexpr Foo(char v);
+  
+  inline constexpr operator char () const;
+  
+  inline constexpr Foo<char> & operator=(const Foo<char> & rhs) /* noexcept */ = default;
+  inline Foo<char> & operator=(char v)
+  {
+    this->raw = v;
+    return *this;
+  }
+  
+  inline void operator=(char v) volatile;
+  
+};
+
+#endif
+/* First instantiated from: CharLiteralTest.cpp:61 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct Foo<int>
+{
+  int raw;
+  inline Foo() noexcept = default;
+  inline constexpr Foo(const Foo<int> & v) noexcept = default;
+  inline constexpr Foo(int v);
+  
+  inline constexpr operator int () const
+  {
+    return this->raw;
+  }
+  
+  inline constexpr Foo<int> & operator=(const Foo<int> & rhs) /* noexcept */ = default;
+  inline Foo<int> & operator=(int v);
+  
+  inline void operator=(int v) volatile;
+  
+};
+
+#endif
+
+using Int = Foo<int>;
+using Char = Foo<char>;
+
+class Test
+{
+  
+  public: 
+  inline void Apply()
+  {
+    Foo<char> * data = this->mData;
+    data[this->GetLength().operator int() + 1].operator=('\0');
+    data[this->GetLength().operator int() + 1].operator=('\n');
+    data[this->GetLength().operator int() + 1].operator=('\\');
+    data[this->GetLength().operator int() + 1].operator=('\'');
+    data[this->GetLength().operator int() + 1].operator=('\a');
+    data[this->GetLength().operator int() + 1].operator=('\b');
+    data[this->GetLength().operator int() + 1].operator=('\f');
+    data[this->GetLength().operator int() + 1].operator=('\r');
+    data[this->GetLength().operator int() + 1].operator=('\t');
+    data[this->GetLength().operator int() + 1].operator=('\v');
+    data[this->GetLength().operator int() + 1].operator=(static_cast<char>(L'\n'));
+    data[this->GetLength().operator int() + 1].operator=(u8'\n');
+    data[this->GetLength().operator int() + 1].operator=(static_cast<char>(u'\n'));
+    data[this->GetLength().operator int() + 1].operator=(static_cast<char>(U'\n'));
+    data[this->GetLength().operator int() + 1].operator=(3U);
+    data[this->GetLength().operator int() + 1].operator=(3UL);
+    data[this->GetLength().operator int() + 1].operator=(3ULL);
+    data[this->GetLength().operator int() + 1].operator=(3LL);
+    data[this->GetLength().operator int() + 1].operator=(3L);
+  }
+  
+  inline Foo<int> GetLength() const
+  {
+    return Foo<int>(this->mLength);
+  }
+  
+  
+  private: 
+  Foo<char> mData[1024];
+  Foo<int> mLength;
+  public: 
+  // inline Test() noexcept = default;
+};
+
+
+int main()
+{
+  Test t;
+  t.Apply();
+  return 0;
+}

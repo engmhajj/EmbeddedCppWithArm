@@ -1,0 +1,66 @@
+#define INSIGHTS_USE_TEMPLATE
+
+template<class T>
+constexpr const T pi = T(3.1415926535897931L);
+
+template<>
+constexpr const int pi<int> = int(3.1415926535897931L);
+
+template<class T>
+T circular_area(T r)
+{
+  return (pi<T> * r) * r;
+}
+
+/* First instantiated from: VarTemplateDecl3Test.cpp:33 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int circular_area<int>(int r)
+{
+  return (pi<int> * r) * r;
+}
+#endif
+
+
+template<typename T>
+struct X
+{
+  T x;
+  T y;
+};
+
+/* First instantiated from: VarTemplateDecl3Test.cpp:30 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct X<int>
+{
+  int x;
+  int y;
+};
+
+#endif
+
+template<typename T>
+X<T> DoIt(T x)
+{
+  return {circular_area(x), circular_area(x + 2)};
+}
+
+/* First instantiated from: VarTemplateDecl3Test.cpp:30 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+X<int> DoIt<int>(int x)
+{
+  return {circular_area(x), circular_area(x + 2)};
+}
+#endif
+
+
+int main()
+{
+  int x = 1;
+  X<int> __DoIt30 = DoIt(x);
+  int & a = __DoIt30.x;
+  int & b = __DoIt30.y;
+  return circular_area(x);
+}

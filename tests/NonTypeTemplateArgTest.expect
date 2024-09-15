@@ -1,0 +1,36 @@
+#define INSIGHTS_USE_TEMPLATE
+#include <cstdio>
+
+static const char c[12] = "Hello World";
+
+template<auto C>
+struct SC
+{
+  static inline void Print()
+  {
+    printf("%s\n", C);
+  }
+  
+};
+
+/* First instantiated from: NonTypeTemplateArgTest.cpp:14 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct SC<&c>
+{
+  static inline void Print()
+  {
+    printf("%s\n", c);
+  }
+  
+  // inline constexpr SC() noexcept = default;
+};
+
+#endif
+
+int main()
+{
+  SC<&c> sc;
+  sc.Print();
+  return 0;
+}

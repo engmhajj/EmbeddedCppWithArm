@@ -1,0 +1,34 @@
+namespace works
+{
+  struct __anon_4_1
+  {
+    int c;
+    // inline __anon_4_1() noexcept = default;
+  };
+  
+  __anon_4_1 RR;
+  
+}
+
+struct __anon_10_1
+{
+  int c;
+  int c1;
+  int c2;
+  int c3;
+  int c4;
+  int c6;
+  // inline __anon_10_1() noexcept = default;
+};
+
+
+__anon_10_1 RR;
+
+struct __anon_20_1
+{
+  int c;
+  // inline __anon_20_1() noexcept = default;
+};
+
+
+__anon_20_1 RR2;

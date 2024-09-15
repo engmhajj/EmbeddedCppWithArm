@@ -1,0 +1,35 @@
+#include <iostream>
+
+namespace Test
+{
+  enum class Order : int
+  {
+    A, 
+    B
+  };
+  
+  inline constexpr const Order OrderA = Order::A;
+  class West
+  {
+    
+    public: 
+    inline West()
+    {
+    }
+    
+    inline int load(const Order order)
+    {
+      return 2;
+    }
+    
+  };
+  
+  
+}
+
+int main()
+{
+  Test::West w = Test::West();
+  std::operator<<(std::operator<<(std::cout, "test: ").operator<<(w.load(Test::OrderA)), "\n");
+  return 0;
+}

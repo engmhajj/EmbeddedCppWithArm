@@ -1,0 +1,34 @@
+class MyArrayWrapper
+{
+  int * data;
+  int size;
+  
+  public: 
+  inline int * begin()
+  {
+    return this->size > 0 ? &this->data[0] : nullptr;
+  }
+  
+  inline int * end()
+  {
+    return this->size > 0 ? &this->data[this->size - 1] : nullptr;
+  }
+  
+  // inline MyArrayWrapper() noexcept = default;
+};
+
+
+int main()
+{
+  MyArrayWrapper arr;
+  {
+    MyArrayWrapper & __range1 = arr;
+    int * __begin1 = __range1.begin();
+    int * __end1 = __range1.end();
+    for(; __begin1 != __end1; ++__begin1) {
+      int i = *__begin1;
+    }
+    
+  }
+  return 0;
+}

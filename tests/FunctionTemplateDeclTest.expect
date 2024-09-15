@@ -1,0 +1,68 @@
+template<typename T>
+class Test
+{
+  
+  public: 
+  inline Test() = default;
+  template<typename T2>
+  inline Test<T> & operator=(const Test<T2> & other)
+  {
+    return *this;
+  }
+};
+
+/* First instantiated from: FunctionTemplateDeclTest.cpp:17 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Test<int>
+{
+  
+  public: 
+  inline constexpr Test() noexcept = default;
+  template<typename T2>
+  inline Test<int> & operator=(const Test<T2> & other);
+  
+  /* First instantiated from: FunctionTemplateDeclTest.cpp:20 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline Test<int> & operator=<char>(const Test<char> & other)
+  {
+    return *this;
+  }
+  #endif
+  
+};
+
+#endif
+/* First instantiated from: FunctionTemplateDeclTest.cpp:18 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Test<char>
+{
+  
+  public: 
+  inline constexpr Test() noexcept = default;
+  template<typename T2>
+  inline Test<char> & operator=(const Test<T2> & other);
+  
+  /* First instantiated from: FunctionTemplateDeclTest.cpp:22 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline Test<char> & operator=<int>(const Test<int> & other)
+  {
+    return *this;
+  }
+  #endif
+  
+};
+
+#endif
+
+int main()
+{
+  Test<int> ti;
+  Test<char> tc;
+  ti.operator=(tc);
+  tc.operator=(ti);
+  return 0;
+}

@@ -1,0 +1,142 @@
+#include <iostream>
+
+void f(int &&)
+{
+  std::operator<<(std::operator<<(std::cout, "hello"), "&&\n");
+}
+
+void f(int &)
+{
+  std::operator<<(std::operator<<(std::operator<<(std::operator<<(std::cout, "bello"), "&\n"), "world"), "\n");
+}
+
+class Foo
+{
+  
+  public: 
+  inline Foo(int x)
+  : mX{x}
+  {
+  }
+  
+  inline operator const int () const
+  {
+    return this->mX;
+  }
+  
+  inline Foo operator++(int)
+  {
+    Foo old = Foo(*this) /* NRVO variable */;
+    printf("  ======\n");
+    ++this->mX;
+    printf("  ++++++\n");
+    return old;
+  }
+  
+  inline Foo & operator++()
+  {
+    ++this->mX;
+    return *this;
+  }
+  
+  inline Foo operator--(int)
+  {
+    Foo old = Foo(*this) /* NRVO variable */;
+    printf("  ======\n");
+    --this->mX;
+    printf("  ++++++\n");
+    return old;
+  }
+  
+  inline Foo & operator--()
+  {
+    --this->mX;
+    return *this;
+  }
+  
+  inline int Get() const
+  {
+    return this->mX;
+  }
+  
+  
+  private: 
+  int mX;
+  public: 
+  // inline constexpr Foo(const Foo &) noexcept = default;
+  // inline constexpr Foo(Foo &&) noexcept = default;
+};
+
+
+int main()
+{
+    
+  class __lambda_60_5
+  {
+    public: 
+    inline void operator()() const
+    {
+      int n = 10;
+      f(n);
+      f(42);
+      f(int{});
+      Foo f = Foo(1);
+      f.operator++();
+      f.operator++(0);
+      f.operator--();
+      f.operator--(0);
+      printf("%d\n", f.operator++(0));
+      printf("%d %d\n", f.operator++(0), 1);
+      printf("%d\n", f.operator--(0));
+      printf("%d %d\n", f.operator--(0), 1);
+      Foo * ff = &f;
+      printf("%d\n", ff->Get());
+      ++ff;
+      ff++;
+      ++++ff;
+      --ff;
+      ff--;
+      ----ff;
+      printf("%d\n", f.Get());
+    }
+    
+    using retType_60_5 = void (*)();
+    inline constexpr operator retType_60_5 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline void __invoke()
+    {
+      __lambda_60_5{}.operator()();
+    }
+    
+    
+  } __lambda_60_5{};
+  
+  __lambda_60_5.operator()();
+  int n = 10;
+  f(n);
+  f(42);
+  f(int{});
+  Foo f = Foo(1);
+  f.operator++();
+  f.operator++(0);
+  f.operator--();
+  f.operator--(0);
+  printf("%d\n", f.operator++(0));
+  printf("%d %d\n", f.operator++(0), 1);
+  printf("%d\n", f.operator--(0));
+  printf("%d %d\n", f.operator--(0), 1);
+  Foo * ff = &f;
+  printf("%d\n", ff->Get());
+  ++ff;
+  ff++;
+  ++++ff;
+  --ff;
+  ff--;
+  ----ff;
+  printf("%d\n", f.Get());
+  return 0;
+}

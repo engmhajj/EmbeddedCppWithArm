@@ -1,0 +1,115 @@
+#define INSIGHTS_USE_TEMPLATE
+
+template<typename T>
+
+class __lambda_8_23
+{
+  public: 
+  template<class type_parameter_1_0>
+  inline /*constexpr */ auto operator()(type_parameter_1_0 x) const
+  {
+    return T(x);
+  }
+  private: 
+  template<class type_parameter_1_0>
+  static inline /*constexpr */ auto __invoke(type_parameter_1_0 x)
+  {
+    return __lambda_8_23{}.operator()<type_parameter_1_0>(x);
+  }
+  
+};
+
+
+class __lambda_8_23
+{
+  public: 
+  template<class type_parameter_0_0>
+  inline /*constexpr */ auto operator()(type_parameter_0_0 x) const
+  {
+    return double(x);
+  }
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline /*constexpr */ double operator()<int>(int x) const
+  {
+    return double(x);
+  }
+  #endif
+  
+  private: 
+  template<class type_parameter_0_0>
+  static inline /*constexpr */ auto __invoke(type_parameter_0_0 x)
+  {
+    return __lambda_8_23{}.operator()<type_parameter_0_0>(x);
+  }
+  
+};
+
+constexpr const auto func = __lambda_8_23{};
+
+template<>
+constexpr const __lambda_8_23 func<double> = __lambda_8_23{};
+
+template<typename T>
+
+class __lambda_11_29
+{
+  public: 
+  template<class type_parameter_1_0>
+  inline /*constexpr */ auto operator()(type_parameter_1_0 x) const
+  {
+    return T{{x}};
+  }
+  private: 
+  template<class type_parameter_1_0>
+  static inline /*constexpr */ auto __invoke(type_parameter_1_0 x)
+  {
+    return __lambda_11_29{}.operator()<type_parameter_1_0>(x);
+  }
+  
+};
+
+
+class __lambda_11_29
+{
+  public: 
+  template<class type_parameter_0_0>
+  inline /*constexpr */ auto operator()(type_parameter_0_0 x) const
+  {
+    return int{{x}};
+  }
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline /*constexpr */ int operator()<int>(int x) const
+  {
+    return int{x};
+  }
+  #endif
+  
+  private: 
+  template<class type_parameter_0_0>
+  static inline /*constexpr */ auto __invoke(type_parameter_0_0 x)
+  {
+    return __lambda_11_29{}.operator()<type_parameter_0_0>(x);
+  }
+  
+};
+
+constexpr const auto funcBraced = __lambda_11_29{};
+
+template<>
+constexpr const __lambda_11_29 funcBraced<int> = __lambda_11_29{};
+
+double f(int x)
+{
+  return func<double>.operator()(x);
+}
+
+
+double fBraced(int x)
+{
+  return static_cast<double>(funcBraced<int>.operator()(x));
+}
+

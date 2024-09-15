@@ -1,0 +1,9 @@
+int main()
+{
+  class Test
+  {
+    mutable int x;
+  };
+  
+  return 0;
+}

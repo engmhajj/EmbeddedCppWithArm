@@ -1,0 +1,4 @@
+__attribute__((const)) unsigned int ctz(unsigned int x)
+{
+  return 0;
+}

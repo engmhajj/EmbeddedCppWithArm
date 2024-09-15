@@ -1,0 +1,11 @@
+#include <tuple>
+
+float x = {};
+char y = {};
+int z = {};
+
+std::tuple<float &, char &&, int> tpl = std::tuple<float &, char &&, int>(x, std::move(y), z);
+const std::tuple<float &, char &&, int> & __tpl9 = tpl;
+float & a = std::get<0UL>(__tpl9);
+char & b = std::get<1UL>(__tpl9);
+const int & c = std::get<2UL>(__tpl9);

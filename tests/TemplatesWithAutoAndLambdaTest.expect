@@ -1,0 +1,84 @@
+#define INSIGHTS_USE_TEMPLATE
+
+#include <iostream>
+
+template<auto sep = ' ', typename T1, typename ... Types>
+void print(const T1 & arg1, const Types &... args)
+{
+  std::cout << arg1;
+    
+  class __lambda_11_28
+  {
+    public: 
+    template<class type_parameter_1_0>
+    inline auto operator()(const type_parameter_1_0 & arg) const
+    {
+      (std::cout << sep) << arg;
+    }
+    private: 
+    template<class type_parameter_1_0>
+    static inline auto __invoke(const type_parameter_1_0 & arg)
+    {
+      return __lambda_11_28{}.operator()<type_parameter_1_0>(arg);
+    }
+    
+  };
+  
+  auto coutSpaceAndArg = __lambda_11_28{};
+  (... , coutSpaceAndArg(args));
+}
+
+/* First instantiated from: TemplatesWithAutoAndLambdaTest.cpp:22 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void print<' ', char[3], double, std::basic_string<char, std::char_traits<char>, std::allocator<char> > >(const char (&arg1)[3], const double & __args1, const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & __args2)
+{
+  std::operator<<(std::cout, arg1);
+    
+  class __lambda_11_28
+  {
+    public: 
+    template<class type_parameter_0_0>
+    inline /*constexpr */ auto operator()(const type_parameter_0_0 & arg) const
+    {
+      std::operator<<(std::cout, ' ') << arg;
+    }
+    
+    #ifdef INSIGHTS_USE_TEMPLATE
+    template<>
+    inline /*constexpr */ void operator()<double>(const double & arg) const
+    {
+      std::operator<<(std::cout, ' ').operator<<(arg);
+    }
+    #endif
+    
+    
+    #ifdef INSIGHTS_USE_TEMPLATE
+    template<>
+    inline /*constexpr */ void operator()<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & arg) const
+    {
+      std::operator<<(std::operator<<(std::cout, ' '), arg);
+    }
+    #endif
+    
+    private: 
+    template<class type_parameter_0_0>
+    static inline /*constexpr */ auto __invoke(const type_parameter_0_0 & arg)
+    {
+      return __lambda_11_28{}.operator()<type_parameter_0_0>(arg);
+    }
+    
+  };
+  
+  __lambda_11_28 coutSpaceAndArg = __lambda_11_28{};
+  coutSpaceAndArg.operator()(__args1) , coutSpaceAndArg.operator()(__args2);
+}
+#endif
+
+
+int main()
+{
+  std::basic_string<char, std::char_traits<char>, std::allocator<char> > str = std::basic_string<char, std::char_traits<char>, std::allocator<char> >("world");
+  print("hi", 7.5, str);
+  return 0;
+}

@@ -1,16 +1,46 @@
 /Users/mohamadelhajhassan/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Users/mohamadelhajhassan/Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja -G Ninja -S /Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm -B /Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug
--- The C compiler identification is AppleClang 15.0.0.15000309
--- The CXX compiler identification is AppleClang 15.0.0.15000309
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc - skipped
--- Detecting C compile features
--- Detecting C compile features - done
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - skipped
--- Detecting CXX compile features
--- Detecting CXX compile features - done
--- Configuring done (0.7s)
--- Generating done (0.0s)
--- Build files have been written to: /Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug
+-- CMAKE_CXX_COMPILER_ID="AppleClang" ; BUILD_INSIGHTS_OUTSIDE_LLVM="On" ; IS_CLANG="On" ; IS_GNU="Off" ; IS_MSVC_CL="" ; MSVC=""
+-- llvm_config(LLVM_CXXFLAGS)=>-isystem/opt/homebrew/Cellar/llvm/18.1.8/include  -stdlib=libc++   -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS;
+-- llvm_config(LLVM_LDFLAGS)=>-L/opt/homebrew/Cellar/llvm/18.1.8/lib -Wl,-search_paths_first -Wl,-headerpad_max_install_names;
+-- llvm_config(LLVM_LIBS2)=>-lLLVM-18;
+-- llvm_config(LLVM_LIBDIR)=>/opt/homebrew/Cellar/llvm/18.1.8/lib;
+-- llvm_config(LLVM_INCLUDE_DIR)=>/opt/homebrew/Cellar/llvm/18.1.8/include;
+-- llvm_config(LLVM_SYSTEM_LIBS2)=>;
+-- llvm_config(LLVM_PACKAGE_VERSION)=>18.1.8;
+-- Generating version.h
+-- Found clang-tidy: /opt/homebrew/opt/llvm/bin/clang-tidy
+-- Could not find the program include-what-you-use
+-- Found ccache: /opt/homebrew/bin/ccache
+CMake Error: File /Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/docs/Doxyfile.in does not exist.
+CMake Error at CMakeLists.txt:611 (configure_file):
+  configure_file Problem configuring file
+
+
+-- Found Python3: /opt/homebrew/Frameworks/Python.framework/Versions/3.12/bin/python3.12. Target tests enabled.
+-- 
+-- [ Build summary ]
+-- BUILD_INSIGHTS_OUTSIDE_LLVM : On
+-- CMAKE_GENERATOR       : Ninja
+-- CMAKE_EXE_LINKER_FLAGS: 
+-- CMAKE_LINKER          : /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
+-- CMAKE_OSX_ARCHITECTURES : 
+-- Compiler ID           : AppleClang
+-- Compiler version      : 15.0.0.15000309
+-- Compiler path         : /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++
+-- llvm-config           : /opt/homebrew/opt/llvm/bin/llvm-config
+-- Min LLVM major version: 18
+-- Install path          : /usr/local
+-- Clang resource dir    : 
+-- CMAKE_SOURCE_DIR      : /Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm
+-- CMAKE_BINARY_DIR      : /Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug
+-- Git repo url          : 
+-- Git commit hash       : ed3b490524937fc29d8a9bc323f3a6988caa5220
+-- Debug                 : OFF
+-- Code Coverage         : OFF
+-- Static linking        : OFF
+-- Strip executable      : ON
+-- Elevate includes:     : ON
+-- clang-tidy            : Off
+-- include-what-you-use  : Off
+-- 
+-- Configuring incomplete, errors occurred!

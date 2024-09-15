@@ -1,0 +1,54 @@
+template<typename T>
+class Foo
+{
+  
+  public: 
+  void Func();
+  
+};
+
+/* First instantiated from: CXXMethodTemplateExplicitSpecializationTest.cpp:10 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Foo<int>
+{
+  
+  public: 
+  void Func();
+  
+  // inline constexpr Foo() noexcept = default;
+};
+
+#endif
+/* First instantiated from: CXXMethodTemplateExplicitSpecializationTest.cpp:15 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Foo<char>
+{
+  
+  public: 
+  void Func();
+  
+  // inline constexpr Foo() noexcept = default;
+};
+
+#endif
+
+template<>
+void Foo<int>::Func()
+{
+}
+
+
+template<>
+void Foo<char>::Func()
+{
+}
+
+
+int main()
+{
+  Foo<int> f;
+  Foo<char> fc;
+  return 0;
+}

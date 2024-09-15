@@ -1,0 +1,35 @@
+#define INSIGHTS_USE_TEMPLATE
+
+template<typename T>
+class Foo
+{
+  
+  public: 
+  // inline Foo() = delete;
+  inline Foo(int)
+  {
+  }
+  
+};
+
+/* First instantiated from: ClassWithDeletedSpecialFunctionTest.cpp:12 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Foo<int>
+{
+  
+  public: 
+  // inline Foo() = delete;
+  inline Foo(int)
+  {
+  }
+  
+};
+
+#endif
+
+int main()
+{
+  Foo<int> f = Foo<int>{2};
+  return 0;
+}

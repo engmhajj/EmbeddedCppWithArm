@@ -1,0 +1,37 @@
+#include <utility>
+
+class C
+{
+  
+  public: 
+  int i;
+  inline virtual ~C() noexcept = default;
+  // inline constexpr C(const C &) noexcept = default;
+  // inline C() noexcept = default;
+};
+
+
+class C2
+{
+  
+  public: 
+  const int i{2};
+  inline constexpr C2() noexcept = default;
+};
+
+
+class D : public C
+{
+  
+  public: 
+  int x;
+};
+
+
+int main()
+{
+  C c = C{};
+  C c2 = C(c);
+  C c3 = C(static_cast<const C &&>(std::move(c)));
+  return 0;
+}

@@ -1,0 +1,49 @@
+class X
+{
+  
+  public: 
+  template<typename T>
+  void f(T);
+  
+  /* First instantiated from: MemberExprTemplateTest.cpp:11 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  void f<int>(int);
+  #endif
+  
+  template<typename ... Args>
+  void ff(Args...);
+  
+  /* First instantiated from: MemberExprTemplateTest.cpp:12 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  void ff<int, int, double>(int __0, int __1, double __2);
+  #endif
+  
+};
+
+
+void test(X x)
+{
+    
+  class __lambda_10_5
+  {
+    public: 
+    inline /*constexpr */ void operator()() const
+    {
+      x.f<int>(17);
+      x.ff<int, int, double>(17, 2, 55.5);
+    }
+    
+    private: 
+    X & x;
+    
+    public:
+    __lambda_10_5(X & _x)
+    : x{_x}
+    {}
+    
+  } __lambda_10_5{x};
+  
+  __lambda_10_5.operator()();
+}

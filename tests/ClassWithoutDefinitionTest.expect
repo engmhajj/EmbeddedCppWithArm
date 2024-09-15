@@ -1,0 +1,25 @@
+template<typename T>
+class Foo
+{
+  class Bar;
+  struct Far;
+};
+
+/* First instantiated from: ClassWithoutDefinitionTest.cpp:10 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Foo<int>
+{
+  class Bar;
+  struct Far;
+  public: 
+  // inline constexpr Foo() noexcept = default;
+};
+
+#endif
+
+int main()
+{
+  Foo<int> f;
+  return 0;
+}

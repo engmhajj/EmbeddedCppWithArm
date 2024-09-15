@@ -1,0 +1,120 @@
+#include <typeinfo>
+
+#include <new>
+
+class Bar
+{
+  public: 
+  // inline constexpr Bar() noexcept = default;
+};
+
+
+class Woo
+{
+  
+  public: 
+  inline Woo(int x, char c)
+  : mX{x}
+  {
+  }
+  
+  int mX;
+};
+
+
+class Foo : public Bar
+{
+  
+  public: 
+  inline Foo(int x)
+  : Bar()
+  , mX{x}
+  {
+  }
+  
+  inline Foo(const char c)
+  : Bar()
+  , mX{0}
+  {
+    (*this).operator=(c);
+  }
+  
+  inline bool operator==(const Foo & right)
+  {
+    return this->mX == right.mX;
+  }
+  
+  inline bool operator==(const char * right)
+  {
+    return false;
+  }
+  
+  inline bool operator==(const Bar * right)
+  {
+    return false;
+  }
+  
+  inline bool operator==(const int & right)
+  {
+    return false;
+  }
+  
+  inline bool operator==(const long & right)
+  {
+    return false;
+  }
+  
+  inline bool operator==(const std::type_info & right)
+  {
+    return false;
+  }
+  
+  inline Foo & operator=(const char & ref)
+  {
+    this->mX = static_cast<int>(ref);
+    return *this;
+  }
+  
+  inline bool operator==(const Woo * right)
+  {
+    return this->mX == right->mX;
+  }
+  
+  inline bool operator==(const Woo & right)
+  {
+    return this->mX == right.mX;
+  }
+  
+  int mX;
+};
+
+
+int main()
+{
+  Foo f1 = Foo{1};
+  Foo f2 = Foo{2};
+  const bool b = f1.operator==(f2);
+  void * t;
+  if(b) {
+    return 0;
+  } else {
+    return 1;
+  } 
+  
+  const bool b2 = f1.operator==("main");
+  const bool b3 = f1.operator==(typeid(f2));
+  const bool b4 = f1.operator==(NULL);
+  const bool b5 = f1.operator==(static_cast<const int>((t == nullptr)));
+  unsigned long l = 2;
+  const bool b6 = f1.operator==(static_cast<int>(l));
+  const bool b7 = f1.operator==(dynamic_cast<Bar *>(&f2));
+  const bool b8 = f1.operator==(reinterpret_cast<char *>(t));
+  const bool b9 = f1.operator==(new char[2]);
+  const bool b10 = f1.operator==(new char[2]{1, 2});
+  char buffer[1024];
+  const bool b11 = f1.operator==(new (reinterpret_cast<void *>(buffer))char[2]{1, 2});
+  const bool b12 = f1.operator==(new Woo{1, 'a'});
+  const bool b13 = f1.operator==(Woo{1, 'a'});
+  Foo f3 = Foo{'c'};
+  return 0;
+}

@@ -1,0 +1,27 @@
+#include <cstdio>
+#include <utility>
+
+struct Foo
+{
+  inline void bar() &
+  {
+    printf("lvalue\n");
+  }
+  
+  inline void bar() &&
+  {
+    printf("rvalue\n");
+  }
+  
+  // inline constexpr Foo() noexcept = default;
+};
+
+
+int main()
+{
+  Foo f;
+  f.bar();
+  std::move(f).bar();
+  Foo().bar();
+  return 0;
+}

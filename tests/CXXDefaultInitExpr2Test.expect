@@ -1,0 +1,22 @@
+struct Foo
+{
+  int mem;
+  int x;
+  char c[2];
+  
+  public: 
+  inline Foo()
+  : mem{0}
+  , x{2}
+  , c{1, 2}
+  {
+  }
+  
+};
+
+
+int main()
+{
+  Foo f = Foo();
+  return 0;
+}

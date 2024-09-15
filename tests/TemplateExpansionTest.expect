@@ -1,0 +1,193 @@
+template<template <typename> typename... Templates>
+struct template_tuple
+{
+};
+
+/* First instantiated from: TemplateExpansionTest.cpp:9 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct template_tuple<identity>
+{
+};
+
+#endif
+
+template<typename T>
+struct identity
+{
+};
+
+
+template<template <typename> typename... Templates>
+template_tuple<Templates...> f7()
+{
+}
+
+/* First instantiated from: TemplateExpansionTest.cpp:9 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+template_tuple<identity> f7<identity>()
+{
+}
+#endif
+
+
+void foo2()
+{
+  f7<identity>();
+}
+
+template<typename type_parameter_0_0>
+class A
+{
+};
+
+template<template <typename> typename... >
+class B
+{
+};
+
+/* First instantiated from: TemplateExpansionTest.cpp:27 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class B<Test, Test>
+{
+  public: 
+  // inline constexpr B() noexcept = default;
+};
+
+#endif
+int foo();
+
+template<typename type_parameter_0_0>
+class testType
+{
+};
+
+/* First instantiated from: TemplateExpansionTest.cpp:43 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class testType<int>
+{
+  public: 
+  // inline constexpr testType() noexcept = default;
+};
+
+#endif
+
+template<int (*fp)()>
+class testDecl
+{
+};
+
+/* First instantiated from: TemplateExpansionTest.cpp:45 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class testDecl<&foo>
+{
+};
+
+#endif
+/* First instantiated from: TemplateExpansionTest.cpp:46 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class testDecl<nullptr>
+{
+};
+
+#endif
+
+template<int >
+class testIntegral
+{
+};
+
+/* First instantiated from: TemplateExpansionTest.cpp:48 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class testIntegral<2>
+{
+  public: 
+  // inline constexpr testIntegral() noexcept = default;
+};
+
+#endif
+
+template<template <typename> typename >
+class testTemplate
+{
+};
+
+template<>
+class testTemplate<A>
+{
+};
+
+
+template<template <typename> typename... T>
+class C
+{
+  B<T...> testTemplateExpansion;
+};
+
+/* First instantiated from: TemplateExpansionTest.cpp:41 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class C<Test, Test>
+{
+  B<Test, Test> testTemplateExpansion;
+  public: 
+  // inline constexpr C() noexcept = default;
+};
+
+#endif
+
+template<int , int  = 0>
+class testExpr
+{
+};
+
+/* First instantiated from: TemplateExpansionTest.cpp:50 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class testExpr<4, 1>
+{
+  public: 
+  // inline constexpr testExpr() noexcept = default;
+};
+
+#endif
+
+template<int , int ...>
+class testPack
+{
+};
+
+/* First instantiated from: TemplateExpansionTest.cpp:52 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class testPack<0, 1, 2, 4>
+{
+  public: 
+  // inline constexpr testPack() noexcept = default;
+};
+
+#endif
+
+template<typename T>
+struct Test
+{
+};
+
+
+int main()
+{
+  C<Test, Test> te;
+  testType<int> type;
+  testDecl<&foo> a = {};
+  testDecl<nullptr> b = {};
+  testIntegral<2> integral;
+  testExpr<4, 1> expr;
+  testPack<0, 1, 2, 4> pack;
+  return 0;
+}

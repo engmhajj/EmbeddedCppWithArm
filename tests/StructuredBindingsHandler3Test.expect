@@ -1,0 +1,129 @@
+using size_t = unsigned long;
+
+namespace std
+{
+  template<typename T>
+  struct tuple_size;
+  
+}
+namespace std
+{
+  template<unsigned long , typename type_parameter_0_1>
+  struct tuple_element;
+  /* First instantiated from: StructuredBindingsHandler3Test.cpp:17 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  struct tuple_element<0, constant::Q>
+  {
+    using type = int;
+  };
+  
+  #endif
+  /* First instantiated from: StructuredBindingsHandler3Test.cpp:17 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  struct tuple_element<1, constant::Q>
+  {
+    using type = int;
+  };
+  
+  #endif
+  /* First instantiated from: StructuredBindingsHandler3Test.cpp:17 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  struct tuple_element<2, constant::Q>
+  {
+    using type = int;
+  };
+  
+  #endif
+  
+}
+
+namespace constant
+{
+  struct Q
+  {
+    // inline constexpr Q() noexcept = default;
+    // inline constexpr Q(const Q &) noexcept = default;
+  };
+  
+  template<int N>
+  inline constexpr int get(Q &&)
+  {
+    return N * N;
+  }
+  
+  /* First instantiated from: StructuredBindingsHandler3Test.cpp:17 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline constexpr int get<0>(Q &&)
+  {
+    return 0 * 0;
+  }
+  #endif
+  
+  
+  /* First instantiated from: StructuredBindingsHandler3Test.cpp:17 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline constexpr int get<1>(Q &&)
+  {
+    return 1 * 1;
+  }
+  #endif
+  
+  
+  /* First instantiated from: StructuredBindingsHandler3Test.cpp:17 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline constexpr int get<2>(Q &&)
+  {
+    return 2 * 2;
+  }
+  #endif
+  
+  
+}
+
+template<>
+struct std::tuple_size<constant::Q>
+{
+  static const int value = 3;
+};
+
+template<unsigned long N>
+struct std::tuple_element<N, constant::Q>
+{
+  using type = int;
+};
+
+namespace constant
+{
+  Q q;
+  Q __q17 = Q(q);
+  int && a = get<0UL>(static_cast<Q &&>(__q17));
+  int && b = get<1UL>(static_cast<Q &&>(__q17));
+  int && c = get<2UL>(static_cast<Q &&>(__q17));
+  inline constexpr bool f()
+  {
+    Q __q19 = Q(q);
+    int && a = get<0UL>(static_cast<Q &&>(__q19));
+    int && b = get<1UL>(static_cast<Q &&>(__q19));
+    int && c = get<2UL>(static_cast<Q &&>(__q19));
+    return ((a == 0) && (b == 1)) && (c == 4);
+  }
+  inline constexpr int g()
+  {
+    int * p = nullptr;
+    {
+      Q __q26 = Q(q);
+      int && a = get<0UL>(static_cast<Q &&>(__q26));
+      int && b = get<1UL>(static_cast<Q &&>(__q26));
+      int && c = get<2UL>(static_cast<Q &&>(__q26));
+      p = &c;
+    };
+    return *p;
+  }
+  
+}

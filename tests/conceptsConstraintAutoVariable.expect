@@ -1,0 +1,12 @@
+template<typename T>
+concept FWD = requires{
+  T{};
+  T();
+};
+
+
+int main()
+{
+  int x = 4;
+  return 0;
+}

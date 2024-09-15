@@ -1,0 +1,16 @@
+using X = void (*)();
+
+struct RET
+{
+  X x;
+  int r;
+};
+
+
+int main()
+{
+  const RET & __11 = RET{nullptr, 0};
+  const X & t = __11.x;
+  const int & e = __11.r;
+  return 0;
+}

@@ -1,0 +1,49 @@
+
+class __lambda_3_29
+{
+  public: 
+  inline /*constexpr */ auto operator()() const
+  {
+    return true;
+  }
+  
+  using retType_3_29 = auto (*)();
+  inline constexpr operator retType_3_29 () const noexcept
+  {
+    return __invoke;
+  };
+  
+  private: 
+  static inline /*constexpr */ auto __invoke()
+  {
+    return __lambda_3_29{}.operator()();
+  }
+  
+  
+  public:
+  // /*constexpr */ __lambda_3_29() = default;
+  
+};
+
+template<class F = __lambda_3_29>
+bool test(F f)
+{
+  return f();
+}
+
+/* First instantiated from: Issue468.cpp:12 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+bool test<__lambda_3_29>(__lambda_3_29 f)
+{
+  return f.operator()();
+}
+#endif
+
+
+int main()
+{
+  test(__lambda_3_29{});
+  return 0;
+}
+

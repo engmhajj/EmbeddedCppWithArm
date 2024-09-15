@@ -1,0 +1,68 @@
+namespace detail
+{
+  template<typename T>
+  struct to
+  {
+    template<typename ... Ts>
+    struct result
+    {
+    };
+    
+  };
+  
+  /* First instantiated from: TemplateKeywordTest.cpp:24 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  struct to<int>
+  {
+    template<typename ... Ts>
+    struct result;
+    /* First instantiated from: TemplateKeywordTest.cpp:31 */
+    #ifdef INSIGHTS_USE_TEMPLATE
+    template<>
+    struct result<int, char>
+    {
+      // inline constexpr result() noexcept = default;
+    };
+    
+    #endif
+  };
+  
+  #endif
+  
+}
+
+template<typename ... type_parameter_0_0>
+struct compose;
+
+template<>
+struct compose<>
+{
+  using continuation = int;
+  template<typename C = continuation>
+  struct to
+  {
+    using T = detail::to<C>;
+    template<typename ... Ts>
+    using result = typename T::template result<Ts...>;
+  };
+  
+  /* First instantiated from: TemplateKeywordTest.cpp:31 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  struct to<int>
+  {
+    using T = detail::to<int>;
+    template<typename ... Ts>
+    using result = detail::to<int>::result<Ts...>;
+  };
+  
+  #endif
+};
+
+
+int main()
+{
+  compose<>::to<int>::result<int, char> a;
+  return 0;
+}

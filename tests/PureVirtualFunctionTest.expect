@@ -1,0 +1,28 @@
+class Test
+{
+  
+  public: 
+  virtual void Pure() = 0;
+  
+  // inline constexpr Test() noexcept = default;
+};
+
+
+class West : public Test
+{
+  
+  public: 
+  inline virtual void Pure()
+  {
+  }
+  
+  // inline constexpr West() noexcept = default;
+};
+
+
+int main()
+{
+  West w = West();
+  w.Pure();
+  return 0;
+}

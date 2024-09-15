@@ -1,0 +1,9 @@
+struct S
+{
+};
+
+class T : private virtual S
+{
+  public: 
+};
+

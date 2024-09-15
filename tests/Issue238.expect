@@ -1,0 +1,28 @@
+void f()
+{
+    
+  class __lambda_1_26
+  {
+    public: 
+    template<class type_parameter_0_0>
+    inline /*constexpr */ auto operator()(type_parameter_0_0 container) const
+    {
+      {
+        auto && __range2 = container;
+        for(; ; ) {
+          auto test;
+        }
+        
+      }
+    }
+    private: 
+    template<class type_parameter_0_0>
+    static inline /*constexpr */ auto __invoke(type_parameter_0_0 container)
+    {
+      return __lambda_1_26{}.operator()<type_parameter_0_0>(container);
+    }
+    
+  };
+  
+  __lambda_1_26 lambda = __lambda_1_26{};
+}

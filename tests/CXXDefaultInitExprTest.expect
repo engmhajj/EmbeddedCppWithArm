@@ -1,0 +1,64 @@
+#define INSIGHTS_USE_TEMPLATE
+
+template<typename T, bool array>
+class Alloc
+{
+  const int z;
+  T * data;
+  const bool x;
+  
+  public: 
+  inline Alloc()
+  : z{2}
+  {
+  }
+  
+};
+
+/* First instantiated from: CXXDefaultInitExprTest.cpp:18 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Alloc<int, false>
+{
+  const int z;
+  int * data;
+  const bool x;
+  
+  public: 
+  inline Alloc()
+  : z{2}
+  , data{nullptr}
+  , x{false}
+  {
+  }
+  
+};
+
+#endif
+/* First instantiated from: CXXDefaultInitExprTest.cpp:19 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Alloc<char, true>
+{
+  const int z;
+  char * data;
+  const bool x;
+  
+  public: 
+  inline Alloc()
+  : z{2}
+  , data{nullptr}
+  , x{false}
+  {
+  }
+  
+};
+
+#endif
+
+int main()
+{
+  Alloc<int, false> a = Alloc<int, false>();
+  Alloc<char, true> b = Alloc<char, true>();
+  return 0;
+}

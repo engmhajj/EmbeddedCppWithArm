@@ -1,0 +1,39 @@
+#include <iostream>
+
+
+class __lambda_6_12
+{
+  public: 
+  template<typename T>
+  inline /*constexpr */ auto operator()(T i) const
+  {
+    return 1;
+  }
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline /*constexpr */ int operator()<int>(int i) const
+  {
+    return 1;
+  }
+  #endif
+  
+  private: 
+  template<typename T>
+  static inline /*constexpr */ auto __invoke(T i)
+  {
+    return __lambda_6_12{}.operator()<T>(i);
+  }
+  
+  public:
+  // /*constexpr */ __lambda_6_12() = default;
+  
+};
+
+__lambda_6_12 foo = __lambda_6_12{};
+
+int main()
+{
+  foo.operator()(3);
+  return 0;
+}

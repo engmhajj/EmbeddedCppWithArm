@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+
+class A
+{
+  public: 
+};
+
+
+class B
+{
+  
+  public: 
+  inline operator A () const
+  {
+    return A();
+  }
+  
+};
+
+
+class C : public B
+{
+  public: 
+};
+
+
+void foo(const A &)
+{
+  std::operator<<(std::cout, "A").operator<<(std::endl);
+}
+
+void foo(B &)
+{
+  std::operator<<(std::cout, "B").operator<<(std::endl);
+}
+
+int main()
+{
+  foo(static_cast<const B&>(C()).operator A());
+  return 0;
+}

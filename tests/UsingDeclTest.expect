@@ -1,0 +1,147 @@
+#include <string>
+#include <iostream>
+
+struct B
+{
+  inline virtual void f(int)
+  {
+    std::operator<<(std::cout, "B::f\n");
+  }
+  
+  inline void g(char)
+  {
+    std::operator<<(std::cout, "B::g\n");
+  }
+  
+  inline void h(int)
+  {
+    std::operator<<(std::cout, "B::h\n");
+  }
+  
+  
+  protected: 
+  int m;
+  using value_type = int;
+  public: 
+  // inline B() noexcept = default;
+};
+
+
+template<typename T>
+struct D : public B
+{
+  using B::m;
+  // int m;
+  
+  using B::value_type;
+  using B::f;
+  inline virtual void f(int)
+  {
+    std::operator<<(std::cout, "D::f\n");
+  }
+  
+  using B::g;
+  // inline void B::g(char);
+  
+  inline void g(int)
+  {
+    std::operator<<(std::cout, "D::g\n");
+  }
+  
+  using B::h;
+  inline void h(int)
+  {
+    std::operator<<(std::cout, "D::h\n");
+  }
+  
+};
+
+/* First instantiated from: UsingDeclTest.cpp:56 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct D<int> : public B
+{
+  using B::m;
+  // int m;
+  
+  using B::value_type;
+  using B::f;
+  inline virtual void f(int)
+  {
+    std::operator<<(std::cout, "D::f\n");
+  }
+  
+  using B::g;
+  // inline void B::g(char);
+  
+  inline void g(int);
+  
+  using B::h;
+  inline void h(int);
+  
+  // inline D() noexcept = default;
+};
+
+#endif
+
+namespace Test
+{
+  struct Alloc
+  {
+    // inline constexpr Alloc() noexcept = default;
+  };
+  
+  enum class West : int
+  {
+    north
+  };
+  
+  enum struct Best : int
+  {
+    north
+  };
+  
+  enum Fest
+  {
+    cheer
+  };
+  
+  namespace Inner
+  {
+    inline namespace v1
+    {
+      static const int zz = 0;
+      using type = int;
+      namespace
+      {
+        class Void
+        {
+        };
+        
+        
+      }
+      
+    }
+    
+  }
+  
+}
+
+int main()
+{
+  using std::string;
+  std::string str = std::string("Example");
+  D<int> d = D<int>();
+  using namespace std::string_literals;
+  std::basic_string<char, std::char_traits<char>, std::allocator<char> > str2 = std::operator""s("abc", 3UL);
+  using Vec = Test::Alloc;
+  Vec v;
+  using W = Test::West;
+  using B = Test::Best;
+  using F = Test::Fest;
+  namespace myStd = std;
+  namespace myInner = Test::Inner;
+  using vzz = Test::Inner::type;
+  using Test::Inner::Void;
+  return 0;
+}

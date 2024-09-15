@@ -1,0 +1,81 @@
+#include <utility>
+
+struct S
+{
+  int i;
+  // inline constexpr S(const S &) noexcept = default;
+  // inline constexpr S(S &&) noexcept = default;
+};
+
+
+struct SS
+{
+  int i;
+  // inline SS() noexcept = default;
+  // inline constexpr SS(const SS &) noexcept = default;
+  // inline constexpr SS(SS &&) noexcept = default;
+  // inline constexpr SS & operator=(const SS &) noexcept = default;
+};
+
+
+class C
+{
+  
+  public: 
+  int i;
+  // inline constexpr C(const C &) noexcept = default;
+  // inline constexpr C(C &&) noexcept = default;
+};
+
+
+class D
+{
+  
+  public: 
+  int i;
+  // inline D() noexcept = default;
+  // inline constexpr D(const D &) noexcept = default;
+  // inline constexpr D(D &&) noexcept = default;
+  // inline constexpr D & operator=(const D &) noexcept = default;
+};
+
+
+class E
+{
+  
+  public: 
+  inline E(int x)
+  : i{x}
+  {
+  }
+  
+  
+  private: 
+  int i;
+  public: 
+};
+
+
+int main()
+{
+  S s = {1};
+  S s2 = S(s);
+  S s3 = S(std::move(s));
+  C c = {2};
+  C c2 = C(c);
+  C c3 = C(std::move(c));
+  D d = {2};
+  D d2 = D(d);
+  D d3 = D(std::move(d));
+  D d4;
+  d4.operator=(d2);
+  SS ss = {2};
+  SS ss2 = SS(ss);
+  SS ss3 = SS(std::move(ss));
+  SS ss4;
+  ss4.operator=(ss2);
+  D * dd = new D{3};
+  delete dd;
+  E e = E{6};
+  return 0;
+}

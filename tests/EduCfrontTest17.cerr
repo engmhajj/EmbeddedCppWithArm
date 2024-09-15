@@ -1,0 +1,38 @@
+.tmp.cpp:12:2: error: expected ';' after struct
+   12 | } Foo;
+      |  ^
+      |  ;
+.tmp.cpp:9:1: warning: typedef requires a name [-Wmissing-declarations]
+    9 | typedef struct Foo
+      | ^~~~~~~
+.tmp.cpp:12:3: warning: declaration does not declare anything [-Wmissing-declarations]
+   12 | } Foo;
+      |   ^~~
+.tmp.cpp:14:12: error: use of undeclared identifier 'BT'
+   14 | inline Foo<BT> * Constructor_Foo<BT>(Foo<BT> * __this)
+      |            ^
+.tmp.cpp:14:34: error: use of undeclared identifier 'BT'
+   14 | inline Foo<BT> * Constructor_Foo<BT>(Foo<BT> * __this)
+      |                                  ^
+.tmp.cpp:14:42: error: use of undeclared identifier 'BT'
+   14 | inline Foo<BT> * Constructor_Foo<BT>(Foo<BT> * __this)
+      |                                          ^
+.tmp.cpp:19:12: error: use of undeclared identifier 'BT'
+   19 | inline Foo<BT> * Constructor_Foo<BT>(Foo<BT> * __this, BT v)
+      |            ^
+.tmp.cpp:19:34: error: use of undeclared identifier 'BT'
+   19 | inline Foo<BT> * Constructor_Foo<BT>(Foo<BT> * __this, BT v)
+      |                                  ^
+.tmp.cpp:19:42: error: use of undeclared identifier 'BT'
+   19 | inline Foo<BT> * Constructor_Foo<BT>(Foo<BT> * __this, BT v)
+      |                                          ^
+.tmp.cpp:19:56: error: unknown type name 'BT'
+   19 | inline Foo<BT> * Constructor_Foo<BT>(Foo<BT> * __this, BT v)
+      |                                                        ^
+.tmp.cpp:24:16: error: redefinition of 'Foo' as different kind of symbol
+   24 | typedef struct Foo
+      |                ^
+.tmp.cpp:9:16: note: previous definition is here
+    9 | typedef struct Foo
+      |                ^
+2 warnings and 9 errors generated.

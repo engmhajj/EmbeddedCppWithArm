@@ -1,0 +1,20 @@
+class Base
+{
+  public: 
+  // inline constexpr Base() noexcept = default;
+};
+
+
+class Derived : public Base
+{
+  public: 
+  // inline constexpr Derived() noexcept = default;
+};
+
+
+int main()
+{
+  Derived d;
+  Base & b = static_cast<Base&>(d);
+  return 0;
+}

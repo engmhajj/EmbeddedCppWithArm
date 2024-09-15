@@ -1,0 +1,27 @@
+#include <string>
+
+int main()
+{
+  std::basic_string<char, std::char_traits<char>, std::allocator<char> > str = std::basic_string<char, std::char_traits<char>, std::allocator<char> >{"Hello World"};
+    
+  class __lambda_5_12
+  {
+    public: 
+    inline /*constexpr */ void operator()() const
+    {
+    }
+    
+    private: 
+    std::basic_string<char, std::char_traits<char>, std::allocator<char> > str;
+    public: 
+    // inline __lambda_5_12 & operator=(const __lambda_5_12 &) /* noexcept */ = delete;
+    // inline ~__lambda_5_12() noexcept = default;
+    __lambda_5_12(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & _str)
+    : str{_str}
+    {}
+    
+  };
+  
+  __lambda_5_12 foo = __lambda_5_12{str};
+  return 0;
+}

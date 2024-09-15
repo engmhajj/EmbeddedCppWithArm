@@ -1,0 +1,135 @@
+#include <cstdio>
+
+class Foo
+{
+  
+  public: 
+  inline constexpr Foo() noexcept = default;
+  template<typename T>
+  inline void Do(T && t)
+  {
+    t();
+  }
+  
+  /* First instantiated from: TemplateMemberFunctionTest.cpp:33 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline void Do<__lambda_33_10>(__lambda_33_10 && t)
+  {
+    t.operator()();
+  }
+  #endif
+  
+  template<int X, typename T>
+  inline void DoOther(T && t)
+  {
+    t();
+  }
+  
+  /* First instantiated from: TemplateMemberFunctionTest.cpp:35 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline void DoOther<1, __lambda_35_18>(__lambda_35_18 && t)
+  {
+    t.operator()();
+  }
+  #endif
+  
+  template<int X, char c, typename T>
+  inline void DoBar(T && t)
+  {
+    t();
+  }
+  
+  /* First instantiated from: TemplateMemberFunctionTest.cpp:37 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline void DoBar<1, 't', __lambda_37_21>(__lambda_37_21 && t)
+  {
+    t.operator()();
+  }
+  #endif
+  
+};
+
+
+int main()
+{
+  Foo f;
+    
+  class __lambda_33_10
+  {
+    public: 
+    inline /*constexpr */ void operator()() const
+    {
+      printf("hello\n");
+    }
+    
+    using retType_33_10 = void (*)();
+    inline constexpr operator retType_33_10 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline /*constexpr */ void __invoke()
+    {
+      __lambda_33_10{}.operator()();
+    }
+    
+    
+  };
+  
+  f.Do<__lambda_33_10>(__lambda_33_10{});
+    
+  class __lambda_35_18
+  {
+    public: 
+    inline /*constexpr */ void operator()() const
+    {
+      printf("hello\n");
+    }
+    
+    using retType_35_18 = void (*)();
+    inline constexpr operator retType_35_18 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline /*constexpr */ void __invoke()
+    {
+      __lambda_35_18{}.operator()();
+    }
+    
+    
+  };
+  
+  f.DoOther<1>(__lambda_35_18{});
+    
+  class __lambda_37_21
+  {
+    public: 
+    inline /*constexpr */ void operator()() const
+    {
+      printf("hello\n");
+    }
+    
+    using retType_37_21 = void (*)();
+    inline constexpr operator retType_37_21 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline /*constexpr */ void __invoke()
+    {
+      __lambda_37_21{}.operator()();
+    }
+    
+    
+  };
+  
+  f.DoBar<1, 116>(__lambda_37_21{});
+  return 0;
+}

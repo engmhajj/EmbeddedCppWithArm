@@ -1,0 +1,15 @@
+int main()
+{
+  struct S
+  {
+    inline S()
+    : x{3}
+    {
+    }
+    
+    int x;
+  };
+  
+  S s = S();
+  return 0;
+}

@@ -1,0 +1,79 @@
+
+class __lambda_3_12
+{
+  public: 
+  template<class type_parameter_0_0>
+  inline /*constexpr */ auto operator()(int (*fp)(int), type_parameter_0_0 a) const
+  {
+    return fp(a);
+  }
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline /*constexpr */ int operator()<int>(int (*fp)(int), int a) const
+  {
+    return fp(a);
+  }
+  #endif
+  
+  private: 
+  template<class type_parameter_0_0>
+  static inline /*constexpr */ auto __invoke(int (*fp)(int), type_parameter_0_0 a)
+  {
+    return __lambda_3_12{}.operator()<type_parameter_0_0>(fp, a);
+  }
+  
+};
+
+__lambda_3_12 Fwd = __lambda_3_12{};
+
+
+class __lambda_5_10
+{
+  public: 
+  template<class type_parameter_0_0>
+  inline /*constexpr */ auto operator()(type_parameter_0_0 a) const
+  {
+    return a;
+  }
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline /*constexpr */ int operator()<int>(int a) const
+  {
+    return a;
+  }
+  #endif
+  
+  
+  /* First instantiated from: LambdaWithFunctionPointerTest.cpp:7 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  using retType_5_10 = int (*)(int);
+  template<>
+  inline constexpr operator retType_5_10 () const noexcept
+  {
+    return __invoke;
+  }
+  #endif
+  
+  private: 
+  template<class type_parameter_0_0>
+  static inline /*constexpr */ auto __invoke(type_parameter_0_0 a)
+  {
+    return __lambda_5_10{}.operator()<type_parameter_0_0>(a);
+  }
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  static inline /*constexpr */ int __invoke<int>(int a)
+  {
+    return __lambda_5_10{}.operator()<int>(a);
+  }
+  #endif
+  
+  
+};
+
+__lambda_5_10 C = __lambda_5_10{};
+
+/* PASSED: static_assert(Fwd.operator()(C.operator __lambda_5_10::retType_5_10(), 3) == 3); */

@@ -1,0 +1,41 @@
+class Test
+{
+  
+  public: 
+  inline constexpr Test() noexcept = default;
+  template<typename T2>
+  inline Test & operator=(const T2 & other)
+  {
+    return *this;
+  }
+  
+  /* First instantiated from: FunctionTemplateDecl2Test.cpp:19 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline Test & operator=<int>(const int & other)
+  {
+    return *this;
+  }
+  #endif
+  
+  
+  /* First instantiated from: FunctionTemplateDecl2Test.cpp:21 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline Test & operator=<char>(const char & other)
+  {
+    return *this;
+  }
+  #endif
+  
+};
+
+
+int main()
+{
+  Test ti;
+  Test tc;
+  ti.operator=(2);
+  tc.operator=('a');
+  return 0;
+}

@@ -1,0 +1,17 @@
+struct __anon_4_1
+{
+  int x;
+  // inline __anon_4_1() noexcept = default;
+};
+
+
+__anon_4_1 myAnonStruct;
+
+struct __anon_5_1
+{
+  int x;
+  // inline __anon_5_1() noexcept = default;
+};
+
+
+__anon_5_1 myAnonStruct2;

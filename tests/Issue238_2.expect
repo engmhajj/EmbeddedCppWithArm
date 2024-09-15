@@ -1,0 +1,90 @@
+template<class T>
+class MyArrayWrapper
+{
+  T * data;
+  int size;
+  
+  public: 
+  inline int * begin()
+  {
+    return this->size > 0 ? &this->data[0] : nullptr;
+  }
+  
+  inline int * end()
+  {
+    return this->size > 0 ? &this->data[this->size - 1] : nullptr;
+  }
+  
+};
+
+/* First instantiated from: Issue238_2.cpp:19 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class MyArrayWrapper<int>
+{
+  int * data;
+  int size;
+  
+  public: 
+  inline int * begin()
+  {
+    return this->size > 0 ? &this->data[0] : nullptr;
+  }
+  
+  inline int * end()
+  {
+    return this->size > 0 ? &this->data[this->size - 1] : nullptr;
+  }
+  
+  // inline constexpr MyArrayWrapper(const MyArrayWrapper<int> &) noexcept = default;
+};
+
+#endif
+
+void f()
+{
+    
+  class __lambda_15_17
+  {
+    public: 
+    template<class type_parameter_0_0>
+    inline /*constexpr */ auto operator()(type_parameter_0_0 container) const
+    {
+      {
+        auto && __range2 = container;
+        for(; ; ) {
+          auto test;
+        }
+        
+      }
+    }
+    
+    #ifdef INSIGHTS_USE_TEMPLATE
+    template<>
+    inline /*constexpr */ void operator()<MyArrayWrapper<int> >(MyArrayWrapper<int> container) const
+    {
+      {
+        MyArrayWrapper<int> & __range2 = container;
+        int * __begin0 = __range2.begin();
+        int * __end0 = __range2.end();
+        for(; __begin0 != __end0; ++__begin0) {
+          int test = *__begin0;
+        }
+        
+      }
+    }
+    #endif
+    
+    private: 
+    template<class type_parameter_0_0>
+    static inline /*constexpr */ auto __invoke(type_parameter_0_0 container)
+    {
+      return __lambda_15_17{}.operator()<type_parameter_0_0>(container);
+    }
+    
+  };
+  
+  __lambda_15_17 lambda = __lambda_15_17{};
+  MyArrayWrapper<int> vec;
+  lambda.operator()(MyArrayWrapper<int>(vec));
+}

@@ -1,0 +1,32 @@
+#include <new> // for thread-safe static's placement new
+#include <stdint.h> // for uint64_t under Linux/GCC
+
+void X()
+{
+  throw ;
+}
+
+class Sing
+{
+  
+  public: 
+  inline Sing()
+  {
+    X();
+  }
+  
+};
+
+
+Sing & Test()
+{
+  static bool __sGuard;
+  alignas(Sing) static char __s[sizeof(Sing)];
+  
+  if((__sGuard & 255) == 0) {
+    new (&__s)Sing();
+    __sGuard = true;
+  } 
+  
+  return *reinterpret_cast<Sing*>(__s);
+}

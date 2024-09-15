@@ -1,0 +1,111 @@
+class Foo
+{
+  inline Foo()
+  : mX{0}
+  {
+        
+    class __lambda_6_18
+    {
+      public: 
+      inline /*constexpr */ void operator()() const
+      {
+        __this->Get();
+      }
+      
+      private: 
+      Foo * __this;
+      
+      public:
+      __lambda_6_18(Foo * _this)
+      : __this{_this}
+      {}
+      
+    };
+    
+    __lambda_6_18 f = __lambda_6_18{this};
+        
+    class __lambda_10_18
+    {
+      public: 
+      inline /*constexpr */ void operator()() const
+      {
+        __this->Get();
+      }
+      
+      private: 
+      Foo * __this;
+      
+      public:
+      __lambda_10_18(Foo * _this)
+      : __this{_this}
+      {}
+      
+    };
+    
+    __lambda_10_18 g = __lambda_10_18{this};
+        
+    class __lambda_14_18
+    {
+      public: 
+      inline /*constexpr */ void operator()() const
+      {
+        (&__this)->Get();
+      }
+      
+      private: 
+      Foo __this;
+      
+      public:
+      __lambda_14_18(const Foo & _this)
+      : __this{_this}
+      {}
+      
+    };
+    
+    __lambda_14_18 h = __lambda_14_18{*this};
+  }
+  
+  inline int Get() const
+  {
+    return 22;
+  }
+  
+  
+  private: 
+  int mX;
+  public: 
+  // inline constexpr Foo(const Foo &) noexcept = default;
+};
+
+
+struct X
+{
+  int x;
+  int y;
+  int operator()(int);
+  
+  inline void f()
+  {
+        
+    class __lambda_35_9
+    {
+      public: 
+      inline /*constexpr */ int operator()() const
+      {
+        return __this->operator()(__this->x + __this->y);
+      }
+      
+      private: 
+      X * __this;
+      
+      public:
+      __lambda_35_9(X * _this)
+      : __this{_this}
+      {}
+      
+    } __lambda_35_9{this};
+    
+  }
+  
+};
+

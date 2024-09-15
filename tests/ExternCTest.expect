@@ -1,0 +1,17 @@
+extern "C"{
+  void Foo();
+  
+}
+
+int main()
+{
+  Foo();
+  return 0;
+}
+
+extern "C"{
+  void Foo()
+  {
+  }
+  
+}

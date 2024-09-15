@@ -1,0 +1,59 @@
+#include <cstdio>
+
+class Foo
+{
+  
+  public: 
+  inline Foo(int foo)
+  : mFoo{foo}
+  {
+  }
+  
+  inline int Mul(int f)
+  {
+    return f * this->GetFoo();
+  }
+  
+  
+  protected: 
+  inline int GetFoo() const
+  {
+    return this->mFoo;
+  }
+  
+  
+  private: 
+  int mFoo;
+  public: 
+};
+
+
+class Bar : public Foo
+{
+  
+  public: 
+  inline Bar(int foo, int bar)
+  : Foo(foo)
+  , mBar{bar}
+  {
+  }
+  
+  inline int Sum()
+  {
+    return this->mBar + /* static_cast<const Foo *>(this)-> */ GetFoo();
+  }
+  
+  
+  private: 
+  int mBar;
+  public: 
+};
+
+
+int main()
+{
+  Foo foo = Foo(10);
+  Bar bar = Bar(10, 5);
+  printf("%d %d %d\n", foo.Mul(2), bar.Sum(), static_cast<Foo&>(bar).Mul(3));
+  return 0;
+}

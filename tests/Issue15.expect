@@ -1,0 +1,57 @@
+#define INSIGHTS_USE_TEMPLATE
+
+#include <chrono>
+#include <string>
+
+std::chrono::duration<long long, std::ratio<1, 1> > operator""_s(unsigned long long s)
+{
+  return std::chrono::duration<long long, std::ratio<1, 1> >(s);
+}
+
+std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator""_str(const char * s, std::size_t len)
+{
+  return std::basic_string<char, std::char_traits<char>, std::allocator<char> >(s, len);
+}
+
+template<char ..._Digits>
+inline constexpr int operator""_cs()
+{
+  return 0;
+}
+
+/* First instantiated from: Issue15.cpp:38 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+inline constexpr int operator""_cs<'4', '5', '6', '7'>()
+{
+  return 0;
+}
+#endif
+
+
+template<typename T, T ...C>
+inline constexpr int operator""_x()
+{
+  return 0;
+}
+
+/* First instantiated from: Issue15.cpp:33 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+inline constexpr int operator""_x<char, '1', '2', '3', '4', '5'>()
+{
+  return 0;
+}
+#endif
+
+
+int main()
+{
+  using namespace std::literals;
+  std::chrono::duration<long long, std::ratio<1, 1> > t = std::operator""s(98291919ULL);
+  int t4 = operator""_x<char, '1', '2', '3', '4', '5'>();
+  std::basic_string<char, std::char_traits<char>, std::allocator<char> > str = operator""_str("abcd", 4UL);
+  std::chrono::duration<long long, std::ratio<1, 1> > sec = operator""_s(4ULL);
+  int cookedTemplateLiteral = operator""_cs<'4', '5', '6', '7'>();
+  return 0;
+}

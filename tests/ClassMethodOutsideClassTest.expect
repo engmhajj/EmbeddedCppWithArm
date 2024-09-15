@@ -1,0 +1,30 @@
+class X
+{
+  int i;
+  
+  public: 
+  X(int ii);
+  
+  void modify();
+  
+};
+
+
+X::X(int ii)
+{
+  this->i = ii;
+}
+
+
+void X::modify()
+{
+  this->i++;
+}
+
+
+int main()
+{
+  X x = X(0);
+  x.modify();
+  return 0;
+}

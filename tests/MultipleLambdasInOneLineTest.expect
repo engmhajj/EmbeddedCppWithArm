@@ -1,0 +1,55 @@
+#include <cstdio>
+
+int main()
+{
+      
+  class __lambda_5_3
+  {
+    public: 
+    inline /*constexpr */ void operator()() const
+    {
+      printf("Hello ");
+    }
+    
+    using retType_5_3 = void (*)();
+    inline constexpr operator retType_5_3 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline /*constexpr */ void __invoke()
+    {
+      __lambda_5_3{}.operator()();
+    }
+    
+    
+  } __lambda_5_3{};
+  
+    
+  class __lambda_5_33
+  {
+    public: 
+    inline /*constexpr */ void operator()() const
+    {
+      printf("world");
+    }
+    
+    using retType_5_33 = void (*)();
+    inline constexpr operator retType_5_33 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline /*constexpr */ void __invoke()
+    {
+      __lambda_5_33{}.operator()();
+    }
+    
+    
+  } __lambda_5_33{};
+  
+  __lambda_5_3.operator()() , __lambda_5_33.operator()();
+  return 0;
+}

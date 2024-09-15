@@ -1,0 +1,53 @@
+int Open()
+{
+  return 0;
+}
+int Write()
+{
+  return 0;
+}
+
+int Foo()
+{
+  {
+    int ret = Open();
+    if(1 != ret) {
+      return ret;
+    } else {
+      {
+        int ret = Write();
+        if(1 != ret) {
+          return ret;
+        } 
+        
+      }
+      
+    } 
+    
+  }
+  
+  return 1;
+}
+
+void Fun()
+{
+  {
+    Open();
+    if(true) {
+    } 
+    
+  }
+  
+  {
+    Open();
+    switch(1) {
+      default: break;
+    }
+  }
+}
+
+int main()
+{
+  Foo();
+  return 0;
+}

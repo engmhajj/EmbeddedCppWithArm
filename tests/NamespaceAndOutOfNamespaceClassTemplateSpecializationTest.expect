@@ -1,0 +1,15 @@
+namespace NamespaceAndOutOfNamespaceClassTemplateSpecializationTest
+{
+  template<typename T>
+  struct Base
+  {
+  };
+  
+  
+}
+
+template<>
+struct NamespaceAndOutOfNamespaceClassTemplateSpecializationTest::Base<int>
+{
+};
+

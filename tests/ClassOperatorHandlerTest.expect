@@ -1,0 +1,188 @@
+class Test
+{
+  
+  public: 
+  inline Test(int x)
+  : mX{x}
+  {
+  }
+  
+  inline Test operator++()
+  {
+    this->mX++;
+    return Test(*this);
+  }
+  
+  inline Test operator++(int)
+  {
+    Test tmp = Test{*this} /* NRVO variable */;
+    this->mX++;
+    return tmp;
+  }
+  
+  inline Test operator--()
+  {
+    this->mX--;
+    return Test(*this);
+  }
+  
+  inline Test operator--(int)
+  {
+    Test tmp = Test{*this} /* NRVO variable */;
+    this->mX--;
+    return tmp;
+  }
+  
+  inline Test & operator+=(const Test & rhs)
+  {
+    this->mX = this->mX + rhs.mX;
+    return *this;
+  }
+  
+  inline Test & operator<<(const Test & rhs)
+  {
+    this->mX = this->mX + rhs.mX;
+    return *this;
+  }
+  
+  inline bool operator>(const Test & rhs)
+  {
+    return this->mX > rhs.mX;
+  }
+  
+  inline bool operator>=(const Test & rhs)
+  {
+    return this->mX >= rhs.mX;
+  }
+  
+  inline Test & operator[](const int index)
+  {
+    return *this;
+  }
+  
+  
+  private: 
+  int mX;
+  public: 
+  // inline constexpr Test(const Test &) noexcept = default;
+  // inline constexpr Test(Test &&) noexcept = default;
+};
+
+
+class Fest
+{
+  
+  public: 
+  inline Fest(int x)
+  : mX{x}
+  {
+  }
+  
+  inline int Get() const
+  {
+    return this->mX;
+  }
+  
+  inline int & Get()
+  {
+    return this->mX;
+  }
+  
+  
+  private: 
+  int mX;
+  public: 
+};
+
+
+namespace Hello
+{
+  namespace Bello
+  {
+    class Fest
+    {
+      
+      public: 
+      inline Fest(int x)
+      : mX{x}
+      {
+      }
+      
+      inline int Get() const
+      {
+        return this->mX;
+      }
+      
+      inline int & Get()
+      {
+        return this->mX;
+      }
+      
+      inline Fest & operator<<(const Fest & rhs)
+      {
+        this->mX = this->mX + rhs.mX;
+        return *this;
+      }
+      
+      
+      private: 
+      int mX;
+      public: 
+    };
+    
+    inline bool operator<(const Fest & LHS, const Fest & RHS)
+    {
+      return LHS.Get() < RHS.Get();
+    }
+    static Fest sF = Fest{3};
+    
+  }
+  
+}
+
+inline bool operator<(const Fest & LHS, const Fest & RHS)
+{
+  return LHS.Get() < RHS.Get();
+}
+
+int main()
+{
+  Test t1 = Test{2};
+  t1.operator++(0);
+  t1.operator--(0);
+  t1.operator++();
+  t1.operator--();
+  t1.operator++().operator++();
+  Test t2 = Test{5};
+  t1.operator+=(t2);
+  if(t1.operator>(t2)) {
+    return 1;
+  } 
+  
+  if(t1.operator>=(t2)) {
+    return 3;
+  } 
+  
+  Test & t3 = t1.operator[](0);
+  Test t4 = Test(t1);
+  t4.operator<<(t1).operator<<(t2).operator<<(t3);
+  Test * t5 = new Test(2);
+  (*t5).operator++(0);
+  Test tt5 = Test(*t5++);
+  (*t5).operator++();
+  (*t5).operator++().operator++();
+  Fest f1 = Fest{2};
+  Fest f2 = Fest{3};
+  if(operator<(f1, f2)) {
+    return 22;
+  } 
+  
+  Hello::Bello::Fest f3 = Hello::Bello::Fest{3};
+  Hello::Bello::Fest f4 = Hello::Bello::Fest{3};
+  if(Hello::Bello::operator<(f3, f4)) {
+    return 44;
+  } 
+  
+  Hello::Bello::sF.operator<<(Hello::Bello::sF).operator<<(Hello::Bello::sF);
+  return 0;
+}

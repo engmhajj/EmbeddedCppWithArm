@@ -1,0 +1,51 @@
+void x()
+{
+    
+  class __lambda_3_12
+  {
+    public: 
+    inline /*constexpr */ void operator()() const
+    {
+      
+      class __lambda_4_5
+      {
+        public: 
+        inline /*constexpr */ void operator()() const
+        {
+        }
+        
+        using retType_4_5 = void (*)();
+        inline constexpr operator retType_4_5 () const noexcept
+        {
+          return __invoke;
+        };
+        
+        private: 
+        static inline /*constexpr */ void __invoke()
+        {
+          __lambda_4_5{}.operator()();
+        }
+        
+        
+      };
+      
+      __lambda_4_5{};
+    }
+    
+    using retType_3_12 = void (*)();
+    inline constexpr operator retType_3_12 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline /*constexpr */ void __invoke()
+    {
+      __lambda_3_12{}.operator()();
+    }
+    
+    
+  };
+  
+  __lambda_3_12 a = __lambda_3_12{};
+}

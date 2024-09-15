@@ -1,0 +1,39 @@
+namespace mine
+{
+  inline namespace __1
+  {
+    static const int x = 1;
+    
+  }
+  
+}
+
+int main()
+{
+    
+  class __lambda_11_5
+  {
+    public: 
+    inline /*constexpr */ void operator()() const
+    {
+      int x = mine::x;
+    }
+    
+    using retType_11_5 = void (*)();
+    inline constexpr operator retType_11_5 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline /*constexpr */ void __invoke()
+    {
+      __lambda_11_5{}.operator()();
+    }
+    
+    
+  } __lambda_11_5{};
+  
+  __lambda_11_5.operator()();
+  return 0;
+}

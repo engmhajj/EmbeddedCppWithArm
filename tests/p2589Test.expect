@@ -1,0 +1,15 @@
+struct Test
+{
+  static inline int operator[](unsigned int idx)
+  {
+    return 2;
+  }
+  
+};
+
+
+int main()
+{
+  Test t = {};
+  return t.operator[](4);
+}

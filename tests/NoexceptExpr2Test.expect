@@ -1,0 +1,15 @@
+void Foo() noexcept(false)
+{
+}
+
+void Bar() noexcept(false)
+{
+}
+
+void BBar() noexcept(true)
+{
+}
+
+void FoBar() noexcept
+{
+}

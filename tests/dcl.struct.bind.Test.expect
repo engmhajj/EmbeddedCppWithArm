@@ -1,0 +1,20 @@
+#include <cassert>
+#include <tuple>
+
+float x = {};
+char y = {};
+int z = {};
+
+std::tuple<float &, char &&, int> tpl = std::tuple<float &, char &&, int>(x, std::move(y), z);
+
+std::tuple<float &, char &&, int> & __tpl72 = tpl;
+float & a = std::get<0UL>(__tpl72);
+char & b = std::get<1UL>(__tpl72);
+int & c = std::get<2UL>(__tpl72);
+
+int main()
+{
+  a = static_cast<float>(4.5);
+  c = 5;
+  return 0;
+}

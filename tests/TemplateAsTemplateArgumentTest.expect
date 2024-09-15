@@ -1,0 +1,41 @@
+template<typename T>
+class my_array
+{
+};
+
+/* First instantiated from: TemplateAsTemplateArgumentTest.cpp:7 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class my_array<int>
+{
+  public: 
+  // inline constexpr my_array() noexcept = default;
+};
+
+#endif
+
+template<typename K, typename V, template <typename> typename C = my_array>
+class Map
+{
+  C<K> key;
+  C<V> value;
+};
+
+/* First instantiated from: TemplateAsTemplateArgumentTest.cpp:13 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Map<int, int, my_array>
+{
+  my_array<int> key;
+  my_array<int> value;
+  public: 
+  // inline constexpr Map() noexcept = default;
+};
+
+#endif
+
+int main()
+{
+  Map<int, int, my_array> x;
+  return 0;
+}

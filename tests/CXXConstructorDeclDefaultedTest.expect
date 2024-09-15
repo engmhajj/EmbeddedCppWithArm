@@ -1,0 +1,11 @@
+struct DefaultedCtorAndConstexpr
+{
+  inline constexpr DefaultedCtorAndConstexpr() noexcept = default;
+};
+
+
+int main()
+{
+  DefaultedCtorAndConstexpr t;
+  return 0;
+}

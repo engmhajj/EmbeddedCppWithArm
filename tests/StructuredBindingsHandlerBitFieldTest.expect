@@ -1,0 +1,33 @@
+struct Point
+{
+  int x:2;
+  int y:6;
+};
+
+
+Point pt = {1, 2};
+
+Point & __pt12 = pt;
+int & a2x = __pt12.x;
+int & a2y = __pt12.y;
+
+template<class type_parameter_0_0>
+void Func(type_parameter_0_0 x)
+{
+}
+
+/* First instantiated from: StructuredBindingsHandlerBitFieldTest.cpp:19 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void Func<int>(int x)
+{
+}
+#endif
+
+
+int main()
+{
+  Func(pt.x);
+  ++a2x;
+  return 0;
+}

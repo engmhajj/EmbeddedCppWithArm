@@ -1,0 +1,63 @@
+class Foo
+{
+  
+  public: 
+  inline Foo(int x)
+  : mX{x}
+  {
+  }
+  
+  inline Foo(const char c)
+  : mX{0}
+  {
+    (*this).operator=(Foo(c));
+  }
+  
+  inline bool operator==(const int & right)
+  {
+    return false;
+  }
+  
+  inline bool operator==(const long & right)
+  {
+    return false;
+  }
+  
+  template<int N>
+  inline constexpr decltype(auto) get() const noexcept
+  {
+    if constexpr(N == 1) {
+      return this->mX;
+    } else /* constexpr */ {
+      if constexpr(N == 0) {
+        return 2;
+      } 
+      
+    } 
+    
+  }
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline constexpr int get<1>() const noexcept
+  {
+    if constexpr(true) {
+      return this->mX;
+    } else /* constexpr */ {
+    } 
+    
+  }
+  #endif
+  
+  int mX;
+  // inline Foo & operator=(Foo &&) noexcept = default;
+};
+
+
+int main()
+{
+  Foo f1 = Foo{1};
+  Foo f2 = Foo{2};
+  const bool b2 = f1.operator==(f2.get<1>());
+  return 0;
+}

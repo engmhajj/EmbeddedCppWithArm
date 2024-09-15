@@ -1,0 +1,714 @@
+#include <cassert>
+#include <functional>
+#include <iostream>
+#include <string>
+#include <type_traits>
+#include <typeindex>
+#include <typeinfo>
+
+#include <tuple>
+#include <utility>
+
+template<typename T>
+struct FunctionArgs : public FunctionArgs<decltype(&T::operator())>
+{
+};
+
+/* First instantiated from: Issue102.cpp:16 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct FunctionArgs<(__lambda_73_4::*)() const> : public FunctionArgsBase<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::basic_string<char, std::char_traits<char>, std::allocator<char> > >
+{
+};
+
+#endif
+/* First instantiated from: Issue102.cpp:16 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct FunctionArgs<int (__lambda_74_4::*)(int) const> : public FunctionArgsBase<int, int>
+{
+};
+
+#endif
+/* First instantiated from: Issue102.cpp:16 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct FunctionArgs<(__lambda_73_4::*)() const> : public FunctionArgsBase<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::basic_string<char, std::char_traits<char>, std::allocator<char> > >
+{
+};
+
+#endif
+/* First instantiated from: Issue102.cpp:16 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct FunctionArgs<int (__lambda_74_4::*)(int) const> : public FunctionArgsBase<int, int>
+{
+};
+
+#endif
+/* First instantiated from: Issue102.cpp:16 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct FunctionArgs<(__lambda_73_4::*)() const> : public FunctionArgsBase<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::basic_string<char, std::char_traits<char>, std::allocator<char> > >
+{
+};
+
+#endif
+/* First instantiated from: Issue102.cpp:53 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct FunctionArgs<__lambda_73_4> : public FunctionArgs<(__lambda_73_4::*)() const>
+{
+};
+
+#endif
+/* First instantiated from: Issue102.cpp:53 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct FunctionArgs<__lambda_74_4> : public FunctionArgs<int (__lambda_74_4::*)(int) const>
+{
+};
+
+#endif
+/* First instantiated from: Issue102.cpp:53 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct FunctionArgs<__lambda_73_4> : public FunctionArgs<(__lambda_73_4::*)() const>
+{
+};
+
+#endif
+/* First instantiated from: Issue102.cpp:53 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct FunctionArgs<__lambda_74_4> : public FunctionArgs<int (__lambda_74_4::*)(int) const>
+{
+};
+
+#endif
+/* First instantiated from: Issue102.cpp:53 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct FunctionArgs<__lambda_73_4> : public FunctionArgs<(__lambda_73_4::*)() const>
+{
+};
+
+#endif
+
+template<typename R, typename ... Args>
+struct FunctionArgsBase
+{
+  using args = std::tuple<Args...>;
+  using arity = std::integral_constant<unsigned int, static_cast<unsigned int>(sizeof...(Args))>;
+  using result = R;
+};
+
+/* First instantiated from: Issue102.cpp:30 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct FunctionArgsBase<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::basic_string<char, std::char_traits<char>, std::allocator<char> > >
+{
+  using args = std::tuple<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >;
+  using arity = std::integral_constant<unsigned int, static_cast<unsigned int>(1)>;
+  using result = std::basic_string<char, std::char_traits<char>, std::allocator<char> >;
+};
+
+#endif
+/* First instantiated from: Issue102.cpp:30 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct FunctionArgsBase<int, int>
+{
+  using args = std::tuple<int>;
+  using arity = std::integral_constant<unsigned int, static_cast<unsigned int>(1)>;
+  using result = int;
+};
+
+#endif
+
+template<typename R, typename ... Args>
+struct FunctionArgs<R (*)(Args...)> : public FunctionArgsBase<R, Args...>
+{
+};
+
+
+template<typename R, typename C, typename ... Args>
+struct FunctionArgs<R (C::*)(Args...)> : public FunctionArgsBase<R, Args...>
+{
+};
+
+
+template<typename R, typename C, typename ... Args>
+struct FunctionArgs<R (C::*)(Args...) const> : public FunctionArgsBase<R, Args...>
+{
+};
+
+
+template<class T, class Case, class ... Cases>
+decltype(auto) match(T && value, const Case & _case, const Cases &... cases);
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int match<int &, __lambda_73_4, __lambda_74_4, __lambda_75_4>(int & value, const __lambda_73_4 & _case, const __lambda_74_4 & __cases2, const __lambda_75_4 & __cases3)
+{
+  using namespace std;
+  using args = FunctionArgs<__lambda_73_4>::tuple<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >;
+  using arg = tuple_element_t<0, std::tuple<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > >;
+  using match = is_same<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, decay_t<int &> >;
+  return details::match_call(_case, std::forward<int &>(value), std::integral_constant<bool, false>(static_cast<std::integral_constant<bool, false> &&>(std::is_same<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, int>{{}})), __cases2, __cases3);
+}
+#endif
+
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int match<int &, __lambda_74_4, __lambda_75_4>(int & value, const __lambda_74_4 & _case, const __lambda_75_4 & __cases2)
+{
+  using namespace std;
+  using args = FunctionArgs<__lambda_74_4>::tuple<int>;
+  using arg = tuple_element_t<0, std::tuple<int> >;
+  using match = is_same<decay_t<arg>, decay_t<int &> >;
+  return details::match_call(_case, std::forward<int &>(value), std::integral_constant<bool, true>(static_cast<std::integral_constant<bool, true> &&>(std::is_same<int, int>{{}})), __cases2);
+}
+#endif
+
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int match<const char (&)[3], __lambda_73_4, __lambda_74_4, __lambda_75_4>(const char (&value)[3], const __lambda_73_4 & _case, const __lambda_74_4 & __cases2, const __lambda_75_4 & __cases3)
+{
+  using namespace std;
+  using args = FunctionArgs<__lambda_73_4>::tuple<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >;
+  using arg = tuple_element_t<0, std::tuple<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > >;
+  using match = is_same<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, decay_t<const char (&)[3]> >;
+  return details::match_call(_case, std::forward<const char (&)[3]>(value), std::integral_constant<bool, false>(static_cast<std::integral_constant<bool, false> &&>(std::is_same<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, const char *>{{}})), __cases2, __cases3);
+}
+#endif
+
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int match<const char (&)[3], __lambda_74_4, __lambda_75_4>(const char (&value)[3], const __lambda_74_4 & _case, const __lambda_75_4 & __cases2)
+{
+  using namespace std;
+  using args = FunctionArgs<__lambda_74_4>::tuple<int>;
+  using arg = tuple_element_t<0, std::tuple<int> >;
+  using match = is_same<decay_t<arg>, decay_t<const char (&)[3]> >;
+  return details::match_call(_case, std::forward<const char (&)[3]>(value), std::integral_constant<bool, false>(static_cast<std::integral_constant<bool, false> &&>(std::is_same<int, const char *>{{}})), __cases2);
+}
+#endif
+
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+decltype(auto) match<const char (&)[3], __lambda_75_4>(const char (&value)[3], const __lambda_75_4 & _case);
+#endif
+
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+std::basic_string<char, std::char_traits<char>, std::allocator<char> > match<std::basic_string<char, std::char_traits<char>, std::allocator<char> > &, __lambda_73_4, __lambda_74_4, __lambda_75_4>(std::basic_string<char, std::char_traits<char>, std::allocator<char> > & value, const __lambda_73_4 & _case, const __lambda_74_4 & __cases2, const __lambda_75_4 & __cases3)
+{
+  using namespace std;
+  using args = FunctionArgs<__lambda_73_4>::tuple<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >;
+  using arg = tuple_element_t<0, std::tuple<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > >;
+  using match = is_same<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::basic_string<char, std::char_traits<char>, std::allocator<char> > >;
+  return details::match_call(_case, std::forward<std::basic_string<char, std::char_traits<char>, std::allocator<char> > &>(value), std::integral_constant<bool, true>(static_cast<std::integral_constant<bool, true> &&>(std::is_same<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::basic_string<char, std::char_traits<char>, std::allocator<char> > >{{}})), __cases2, __cases3);
+}
+#endif
+
+
+template<class T, class Case>
+decltype(auto) match(T && value, const Case & _case);
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int match<const char (&)[3], __lambda_75_4>(const char (&value)[3], const __lambda_75_4 & _case)
+{
+  return _case.operator()(std::forward<const char (&)[3]>(value));
+}
+#endif
+
+
+namespace details
+{
+  template<class T, class Case, class ... OtherCases>
+  decltype(auto) match_call(const Case & _case, T && value, std::integral_constant<bool, true>, const OtherCases &... other)
+  {
+    return _case(std::forward<T>(value));
+  }
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  int match_call<int &, __lambda_74_4, __lambda_75_4>(const __lambda_74_4 & _case, int & value, std::integral_constant<bool, true>, const __lambda_75_4 & __other3)
+  {
+    return _case.operator()(std::forward<int &>(value));
+  }
+  #endif
+  
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  std::basic_string<char, std::char_traits<char>, std::allocator<char> > match_call<std::basic_string<char, std::char_traits<char>, std::allocator<char> > &, __lambda_73_4, __lambda_74_4, __lambda_75_4>(const __lambda_73_4 & _case, std::basic_string<char, std::char_traits<char>, std::allocator<char> > & value, std::integral_constant<bool, true>, const __lambda_74_4 & __other3, const __lambda_75_4 & __other4)
+  {
+    return _case.operator()(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(std::forward<std::basic_string<char, std::char_traits<char>, std::allocator<char> > &>(value)));
+  }
+  #endif
+  
+  template<class T, class Case, class ... OtherCases>
+  decltype(auto) match_call(const Case & _case, T && value, std::integral_constant<bool, false>, const OtherCases &... other)
+  {
+    return match(std::forward<T>(value), other... );
+  }
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  int match_call<int &, __lambda_73_4, __lambda_74_4, __lambda_75_4>(const __lambda_73_4 & _case, int & value, std::integral_constant<bool, false>, const __lambda_74_4 & __other3, const __lambda_75_4 & __other4)
+  {
+    return match(std::forward<int &>(value), __other3, __other4);
+  }
+  #endif
+  
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  int match_call<const char (&)[3], __lambda_73_4, __lambda_74_4, __lambda_75_4>(const __lambda_73_4 & _case, const char (&value)[3], std::integral_constant<bool, false>, const __lambda_74_4 & __other3, const __lambda_75_4 & __other4)
+  {
+    return match(std::forward<const char (&)[3]>(value), __other3, __other4);
+  }
+  #endif
+  
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  int match_call<const char (&)[3], __lambda_74_4, __lambda_75_4>(const __lambda_74_4 & _case, const char (&value)[3], std::integral_constant<bool, false>, const __lambda_75_4 & __other3)
+  {
+    return match(std::forward<const char (&)[3]>(value), __other3);
+  }
+  #endif
+  
+  
+}
+
+template<class T, class Case, class ... Cases>
+decltype(auto) match(T && value, const Case & _case, const Cases &... cases)
+{
+  using namespace std;
+  using args = typename FunctionArgs<Case>::args;
+  using arg = tuple_element_t<0, args>;
+  using match = is_same<decay_t<arg>, decay_t<T> >;
+  return details::match_call(_case, std::forward<T>(value), match{}, cases... );
+}
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int match<int &, __lambda_73_4, __lambda_74_4, __lambda_75_4>(int & value, const __lambda_73_4 & _case, const __lambda_74_4 & __cases2, const __lambda_75_4 & __cases3)
+{
+  using namespace std;
+  using args = FunctionArgs<__lambda_73_4>::tuple<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >;
+  using arg = tuple_element_t<0, std::tuple<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > >;
+  using match = is_same<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, decay_t<int &> >;
+  return details::match_call(_case, std::forward<int &>(value), std::integral_constant<bool, false>(static_cast<std::integral_constant<bool, false> &&>(std::is_same<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, int>{{}})), __cases2, __cases3);
+}
+#endif
+
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int match<int &, __lambda_74_4, __lambda_75_4>(int & value, const __lambda_74_4 & _case, const __lambda_75_4 & __cases2)
+{
+  using namespace std;
+  using args = FunctionArgs<__lambda_74_4>::tuple<int>;
+  using arg = tuple_element_t<0, std::tuple<int> >;
+  using match = is_same<decay_t<arg>, decay_t<int &> >;
+  return details::match_call(_case, std::forward<int &>(value), std::integral_constant<bool, true>(static_cast<std::integral_constant<bool, true> &&>(std::is_same<int, int>{{}})), __cases2);
+}
+#endif
+
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int match<const char (&)[3], __lambda_73_4, __lambda_74_4, __lambda_75_4>(const char (&value)[3], const __lambda_73_4 & _case, const __lambda_74_4 & __cases2, const __lambda_75_4 & __cases3)
+{
+  using namespace std;
+  using args = FunctionArgs<__lambda_73_4>::tuple<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >;
+  using arg = tuple_element_t<0, std::tuple<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > >;
+  using match = is_same<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, decay_t<const char (&)[3]> >;
+  return details::match_call(_case, std::forward<const char (&)[3]>(value), std::integral_constant<bool, false>(static_cast<std::integral_constant<bool, false> &&>(std::is_same<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, const char *>{{}})), __cases2, __cases3);
+}
+#endif
+
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int match<const char (&)[3], __lambda_74_4, __lambda_75_4>(const char (&value)[3], const __lambda_74_4 & _case, const __lambda_75_4 & __cases2)
+{
+  using namespace std;
+  using args = FunctionArgs<__lambda_74_4>::tuple<int>;
+  using arg = tuple_element_t<0, std::tuple<int> >;
+  using match = is_same<decay_t<arg>, decay_t<const char (&)[3]> >;
+  return details::match_call(_case, std::forward<const char (&)[3]>(value), std::integral_constant<bool, false>(static_cast<std::integral_constant<bool, false> &&>(std::is_same<int, const char *>{{}})), __cases2);
+}
+#endif
+
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+decltype(auto) match<const char (&)[3], __lambda_75_4>(const char (&value)[3], const __lambda_75_4 & _case);
+#endif
+
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+std::basic_string<char, std::char_traits<char>, std::allocator<char> > match<std::basic_string<char, std::char_traits<char>, std::allocator<char> > &, __lambda_73_4, __lambda_74_4, __lambda_75_4>(std::basic_string<char, std::char_traits<char>, std::allocator<char> > & value, const __lambda_73_4 & _case, const __lambda_74_4 & __cases2, const __lambda_75_4 & __cases3)
+{
+  using namespace std;
+  using args = FunctionArgs<__lambda_73_4>::tuple<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >;
+  using arg = tuple_element_t<0, std::tuple<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > >;
+  using match = is_same<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::basic_string<char, std::char_traits<char>, std::allocator<char> > >;
+  return details::match_call(_case, std::forward<std::basic_string<char, std::char_traits<char>, std::allocator<char> > &>(value), std::integral_constant<bool, true>(static_cast<std::integral_constant<bool, true> &&>(std::is_same<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::basic_string<char, std::char_traits<char>, std::allocator<char> > >{{}})), __cases2, __cases3);
+}
+#endif
+
+
+template<class T, class Case>
+decltype(auto) match(T && value, const Case & _case)
+{
+  return _case(std::forward<T>(value));
+}
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int match<const char (&)[3], __lambda_75_4>(const char (&value)[3], const __lambda_75_4 & _case)
+{
+  return _case.operator()(std::forward<const char (&)[3]>(value));
+}
+#endif
+
+
+template<class T>
+decltype(auto) test(T && value)
+{
+      
+  class __lambda_73_4
+  {
+    public: 
+    inline auto operator()(std::basic_string<char, std::char_traits<char>, std::allocator<char> > value) const
+    {
+      std::operator<<(std::cout, "This is string ");
+      return operator+(value, " Hi!");
+    }
+    
+    using retType_73_4 = auto (*)(std::string);
+    inline constexpr operator retType_73_4 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline auto __invoke(std::basic_string<char, std::char_traits<char>, std::allocator<char> > value)
+    {
+      return __lambda_73_4{}.operator()(value);
+    }
+    
+    
+  };
+  
+  
+  class __lambda_74_4
+  {
+    public: 
+    inline auto operator()(int i) const
+    {
+      std::operator<<(std::cout, "This is int ");
+      return i * 100;
+    }
+    
+    using retType_74_4 = auto (*)(int);
+    inline constexpr operator retType_74_4 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline auto __invoke(int i)
+    {
+      return __lambda_74_4{}.operator()(i);
+    }
+    
+    
+  };
+  
+  
+  class __lambda_75_4
+  {
+    public: 
+    template<class type_parameter_1_0>
+    inline auto operator()(type_parameter_1_0 a) const
+    {
+      std::operator<<(std::cout, "This is default ");
+      return 0;
+    }
+    private: 
+    template<class type_parameter_1_0>
+    static inline auto __invoke(type_parameter_1_0 a)
+    {
+      return __lambda_75_4{}.operator()<type_parameter_1_0>(a);
+    }
+    
+  };
+  
+  return match(value, __lambda_73_4{}, __lambda_74_4{}, __lambda_75_4{});
+}
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int test<int>(int && value)
+{
+      
+  class __lambda_73_4
+  {
+    public: 
+    inline std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(std::basic_string<char, std::char_traits<char>, std::allocator<char> > value) const
+    {
+      std::operator<<(std::cout, "This is string ");
+      return operator+(value, " Hi!");
+    }
+    
+    using retType_73_4 = string (*)(std::string);
+    inline constexpr operator retType_73_4 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(std::basic_string<char, std::char_traits<char>, std::allocator<char> > value)
+    {
+      return __lambda_73_4{}.operator()(value);
+    }
+    
+    
+  };
+  
+  
+  class __lambda_74_4
+  {
+    public: 
+    inline /*constexpr */ int operator()(int i) const
+    {
+      std::operator<<(std::cout, "This is int ");
+      return i * 100;
+    }
+    
+    using retType_74_4 = int (*)(int);
+    inline constexpr operator retType_74_4 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline /*constexpr */ int __invoke(int i)
+    {
+      return __lambda_74_4{}.operator()(i);
+    }
+    
+    
+  };
+  
+  
+  class __lambda_75_4
+  {
+    public: 
+    template<class type_parameter_0_0>
+    inline /*constexpr */ auto operator()(type_parameter_0_0 a) const
+    {
+      std::operator<<(std::cout, "This is default ");
+      return 0;
+    }
+    private: 
+    template<class type_parameter_0_0>
+    static inline /*constexpr */ auto __invoke(type_parameter_0_0 a)
+    {
+      return __lambda_75_4{}.operator()<type_parameter_0_0>(a);
+    }
+    
+  };
+  
+  return match(value, __lambda_73_4{}, __lambda_74_4{}, __lambda_75_4{});
+}
+#endif
+
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int test<const char (&)[3]>(const char (&value)[3])
+{
+      
+  class __lambda_73_4
+  {
+    public: 
+    inline std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(std::basic_string<char, std::char_traits<char>, std::allocator<char> > value) const
+    {
+      std::operator<<(std::cout, "This is string ");
+      return operator+(value, " Hi!");
+    }
+    
+    using retType_73_4 = string (*)(std::string);
+    inline constexpr operator retType_73_4 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(std::basic_string<char, std::char_traits<char>, std::allocator<char> > value)
+    {
+      return __lambda_73_4{}.operator()(value);
+    }
+    
+    
+  };
+  
+  
+  class __lambda_74_4
+  {
+    public: 
+    inline /*constexpr */ int operator()(int i) const
+    {
+      std::operator<<(std::cout, "This is int ");
+      return i * 100;
+    }
+    
+    using retType_74_4 = int (*)(int);
+    inline constexpr operator retType_74_4 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline /*constexpr */ int __invoke(int i)
+    {
+      return __lambda_74_4{}.operator()(i);
+    }
+    
+    
+  };
+  
+  
+  class __lambda_75_4
+  {
+    public: 
+    template<class type_parameter_0_0>
+    inline /*constexpr */ auto operator()(type_parameter_0_0 a) const
+    {
+      std::operator<<(std::cout, "This is default ");
+      return 0;
+    }
+    
+    #ifdef INSIGHTS_USE_TEMPLATE
+    template<>
+    inline /*constexpr */ int operator()<const char *>(const char * a) const
+    {
+      std::operator<<(std::cout, "This is default ");
+      return 0;
+    }
+    #endif
+    
+    private: 
+    template<class type_parameter_0_0>
+    static inline /*constexpr */ auto __invoke(type_parameter_0_0 a)
+    {
+      return __lambda_75_4{}.operator()<type_parameter_0_0>(a);
+    }
+    
+  };
+  
+  return match(value, __lambda_73_4{}, __lambda_74_4{}, __lambda_75_4{});
+}
+#endif
+
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+std::basic_string<char, std::char_traits<char>, std::allocator<char> > test<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::basic_string<char, std::char_traits<char>, std::allocator<char> > && value)
+{
+      
+  class __lambda_73_4
+  {
+    public: 
+    inline std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(std::basic_string<char, std::char_traits<char>, std::allocator<char> > value) const
+    {
+      std::operator<<(std::cout, "This is string ");
+      return operator+(value, " Hi!");
+    }
+    
+    using retType_73_4 = string (*)(std::string);
+    inline constexpr operator retType_73_4 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(std::basic_string<char, std::char_traits<char>, std::allocator<char> > value)
+    {
+      return __lambda_73_4{}.operator()(value);
+    }
+    
+    
+  };
+  
+  
+  class __lambda_74_4
+  {
+    public: 
+    inline /*constexpr */ int operator()(int i) const
+    {
+      std::operator<<(std::cout, "This is int ");
+      return i * 100;
+    }
+    
+    using retType_74_4 = int (*)(int);
+    inline constexpr operator retType_74_4 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline /*constexpr */ int __invoke(int i)
+    {
+      return __lambda_74_4{}.operator()(i);
+    }
+    
+    
+  };
+  
+  
+  class __lambda_75_4
+  {
+    public: 
+    template<class type_parameter_0_0>
+    inline /*constexpr */ auto operator()(type_parameter_0_0 a) const
+    {
+      std::operator<<(std::cout, "This is default ");
+      return 0;
+    }
+    private: 
+    template<class type_parameter_0_0>
+    static inline /*constexpr */ auto __invoke(type_parameter_0_0 a)
+    {
+      return __lambda_75_4{}.operator()<type_parameter_0_0>(a);
+    }
+    
+  };
+  
+  return match(value, __lambda_73_4{}, __lambda_74_4{}, __lambda_75_4{});
+}
+#endif
+
+
+int main()
+{
+  std::cout.operator<<(test(200)).operator<<(std::endl);
+  std::cout.operator<<(test("RR")).operator<<(std::endl);
+  std::operator<<(std::cout, test(std::basic_string<char, std::char_traits<char>, std::allocator<char> >{"ARR"})).operator<<(std::endl);
+  return 0;
+}

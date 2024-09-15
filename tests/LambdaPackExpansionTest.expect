@@ -1,0 +1,87 @@
+#define INSIGHTS_USE_TEMPLATE
+
+template<class ... Args>
+int g(Args...)
+{
+  return 1;
+}
+
+/* First instantiated from: LambdaPackExpansionTest.cpp:19 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+int g<int, int, int, int, int>(int __0, int __1, int __2, int __3, int __4)
+{
+  return 1;
+}
+#endif
+
+
+template<class ... Args>
+void f2(Args... args)
+{
+    
+  class __lambda_19_15
+  {
+    public: 
+    inline auto operator()() const
+    {
+      return g(args... );
+    }
+    
+    private: 
+    Args... args;
+    
+    public:
+    __lambda_19_15(const type_parameter_0_0... & _args)
+    : args{_args...}
+    {}
+    
+  };
+  
+  auto lm = __lambda_19_15{args};
+  lm();
+}
+
+/* First instantiated from: LambdaPackExpansionTest.cpp:26 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void f2<int, int, int, int, int>(int __args0, int __args1, int __args2, int __args3, int __args4)
+{
+    
+  class __lambda_19_15
+  {
+    public: 
+    inline /*constexpr */ int operator()() const
+    {
+      return g(__args0, __args1, __args2, __args3, __args4);
+    }
+    
+    private: 
+    int __args0;
+    int __args1;
+    int __args2;
+    int __args3;
+    int __args4;
+    
+    public:
+    __lambda_19_15(int & ___args0, int & ___args1, int & ___args2, int & ___args3, int & ___args4)
+    : __args0{___args0}
+    , __args1{___args1}
+    , __args2{___args2}
+    , __args3{___args3}
+    , __args4{___args4}
+    {}
+    
+  };
+  
+  __lambda_19_15 lm = __lambda_19_15{__args0, __args1, __args2, __args3, __args4};
+  lm.operator()();
+}
+#endif
+
+
+int main()
+{
+  f2(1, 2, 3, 4, 5);
+  return 0;
+}

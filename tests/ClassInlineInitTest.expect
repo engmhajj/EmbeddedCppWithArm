@@ -1,0 +1,8 @@
+#include <string>
+
+struct Test
+{
+  std::basic_string<char, std::char_traits<char>, std::allocator<char> > s = std::basic_string<char, std::char_traits<char>, std::allocator<char> >{"333"};
+  int x{2};
+};
+

@@ -1,0 +1,14 @@
+int main()
+{
+  class Test
+  {
+    
+    public: 
+    inline explicit Test()
+    {
+    }
+    
+  };
+  
+  return 0;
+}

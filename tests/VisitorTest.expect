@@ -1,0 +1,65 @@
+template<class ... Ts>
+struct visitor : public Ts...
+{
+  using Ts::operator()...;
+};
+
+/* First instantiated from: VisitorTest.cpp:7 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct visitor<__lambda_8_7, __lambda_9_7> : public __lambda_8_7, public __lambda_9_7
+{
+  using __lambda_8_7::operator();
+  // inline /*constexpr */ void ::operator()(int value) const;
+  
+  using __lambda_9_7::operator();
+  // inline /*constexpr */ void ::operator()(const char * value) const;
+  
+  // inline constexpr visitor<__lambda_8_7, __lambda_9_7> & operator=(const visitor<__lambda_8_7, __lambda_9_7> &) /* noexcept */ = delete;
+  // inline constexpr visitor<__lambda_8_7, __lambda_9_7> & operator=(visitor<__lambda_8_7, __lambda_9_7> &&) /* noexcept */ = delete;
+};
+
+#endif
+template<class ... Ts>
+visitor(Ts...) -> visitor<Ts...>;
+
+/* First instantiated from: VisitorTest.cpp:7 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+visitor(__lambda_8_7 __0, __lambda_9_7 __1) -> visitor<__lambda_8_7, __lambda_9_7>;
+#endif
+
+
+int main()
+{
+    
+  class __lambda_8_7
+  {
+    public: 
+    inline /*constexpr */ void operator()(int value) const
+    {
+    }
+    
+    // inline /*constexpr */ __lambda_8_7 & operator=(const __lambda_8_7 &) /* noexcept */ = delete;
+    // inline /*constexpr */ __lambda_8_7(__lambda_8_7 &&) noexcept = default;
+    
+  };
+  
+  
+  class __lambda_9_7
+  {
+    public: 
+    inline /*constexpr */ void operator()(const char * value) const
+    {
+    }
+    
+    // inline /*constexpr */ __lambda_9_7 & operator=(const __lambda_9_7 &) /* noexcept */ = delete;
+    // inline /*constexpr */ __lambda_9_7(__lambda_9_7 &&) noexcept = default;
+    
+  };
+  
+  visitor<__lambda_8_7, __lambda_9_7> my_visitor = visitor{__lambda_8_7(__lambda_8_7{}), __lambda_9_7(__lambda_9_7{})};
+  static_cast<const __lambda_9_7&>(my_visitor).operator()("hello");
+  static_cast<const __lambda_8_7&>(my_visitor).operator()(2);
+  return 0;
+}

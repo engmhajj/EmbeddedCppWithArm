@@ -1,0 +1,98 @@
+#include <cstdio>
+#include <string>
+
+template<typename T>
+static inline decltype(auto) Normalize(const T & arg)
+{
+  if constexpr(std::is_same_v<T, std::basic_string<char, std::char_traits<char>, std::allocator<char> > >) {
+    return arg.c_str();
+  } else /* constexpr */ {
+    return arg;
+  } 
+  
+}
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+inline const char (&Normalize<char[8]>(const char (&arg)[8]))[8]
+{
+  if constexpr(false) {
+  } else /* constexpr */ {
+    return arg;
+  } 
+  
+}
+#endif
+
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+inline const int & Normalize<int>(const int & arg)
+{
+  if constexpr(false) {
+  } else /* constexpr */ {
+    return arg;
+  } 
+  
+}
+#endif
+
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+inline const value_type * Normalize<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & arg)
+{
+  if constexpr(true) {
+    return arg.c_str();
+  } else /* constexpr */ {
+  } 
+  
+}
+#endif
+
+
+template<typename ... Ts>
+void Log(const char * fmt, const Ts &... ts)
+{
+  printf(fmt, Normalize(ts)... );
+}
+
+/* First instantiated from: TemplateArgumentsTest.cpp:23 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void Log<char[8]>(const char * fmt, const char (&__ts1)[8])
+{
+  printf(fmt, Normalize(__ts1));
+}
+#endif
+
+
+/* First instantiated from: TemplateArgumentsTest.cpp:25 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void Log<int>(const char * fmt, const int & __ts1)
+{
+  printf(fmt, Normalize(__ts1));
+}
+#endif
+
+
+/* First instantiated from: TemplateArgumentsTest.cpp:28 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void Log<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >(const char * fmt, const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & __ts1)
+{
+  printf(fmt, Normalize(__ts1));
+}
+#endif
+
+
+int main()
+{
+  int result = 34;
+  Log("Hello World %s\n", "nothing");
+  Log("And the number is %d\n", result);
+  std::basic_string<char, std::char_traits<char>, std::allocator<char> > test = std::basic_string<char, std::char_traits<char>, std::allocator<char> >{"Hello"};
+  Log("%s\n", test);
+  return 0;
+}

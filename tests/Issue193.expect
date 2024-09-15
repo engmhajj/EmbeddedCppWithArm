@@ -1,0 +1,20 @@
+struct cppcmb_rule_tag16
+{
+};
+
+
+template<typename Val, typename Tag>
+class rule_t
+{
+};
+
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class rule_t<int, cppcmb_rule_tag16>
+{
+  public: 
+};
+
+#endif
+
+const rule_t<int, cppcmb_rule_tag16> expr_top = rule_t<int, cppcmb_rule_tag16>();

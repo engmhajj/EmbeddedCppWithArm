@@ -1,0 +1,76 @@
+struct B
+{
+  inline virtual void f(int)
+  {
+  }
+  
+  inline void g(char)
+  {
+  }
+  
+  inline void h(int)
+  {
+  }
+  
+  // inline constexpr B() noexcept = default;
+};
+
+
+struct D : public B
+{
+  using B::f;
+  inline virtual void f(int)
+  {
+  }
+  
+  using B::g;
+  // inline void B::g(char);
+  
+  inline void g(int)
+  {
+  }
+  
+  using B::h;
+  inline void h(int)
+  {
+  }
+  
+  // inline constexpr D() noexcept = default;
+};
+
+
+struct ProtectedMember
+{
+  
+  protected: 
+  int protectedMember;
+  using value_type = int;
+  public: 
+  // inline ProtectedMember() noexcept = default;
+};
+
+
+struct UsingProtectedToPublicMember : public ProtectedMember
+{
+  using ProtectedMember::protectedMember;
+  // int protectedMember;
+  
+  using ProtectedMember::value_type;
+  // inline UsingProtectedToPublicMember() noexcept = default;
+};
+
+
+int main()
+{
+  UsingProtectedToPublicMember usingProtectedToPublicMember;
+  static_cast<ProtectedMember&>(usingProtectedToPublicMember).protectedMember = 1;
+  D d = D();
+  B & b = static_cast<B&>(d);
+  b.f(1);
+  d.f(1);
+  d.g(1);
+  static_cast<B&>(d).g('a');
+  b.h(1);
+  d.h(1);
+  return 0;
+}

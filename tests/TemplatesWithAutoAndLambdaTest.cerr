@@ -1,0 +1,25 @@
+.tmp.cpp:13:5: error: templates cannot be declared inside of a local class
+   13 |     template<class type_parameter_1_0>
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.tmp.cpp:19:5: error: templates cannot be declared inside of a local class
+   19 |     template<class type_parameter_1_0>
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.tmp.cpp:41:5: error: templates cannot be declared inside of a local class
+   41 |     template<class type_parameter_0_0>
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.tmp.cpp:48:5: error: templates cannot be declared inside of a local class
+   48 |     template<>
+      |     ^~~~~~~~~~
+.tmp.cpp:57:5: error: templates cannot be declared inside of a local class
+   57 |     template<>
+      |     ^~~~~~~~~~
+.tmp.cpp:65:5: error: templates cannot be declared inside of a local class
+   65 |     template<class type_parameter_0_0>
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.tmp.cpp:68:42: error: 'type_parameter_0_0' does not refer to a value
+   68 |       return __lambda_11_28{}.operator()<type_parameter_0_0>(arg);
+      |                                          ^
+.tmp.cpp:65:20: note: declared here
+   65 |     template<class type_parameter_0_0>
+      |                    ^
+7 errors generated.

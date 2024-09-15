@@ -1,0 +1,22 @@
+class C
+{
+  
+  public: 
+  inline C() noexcept = default;
+  inline int Get() const
+  {
+    return ++this->mX;
+  }
+  
+  
+  private: 
+  mutable int mX;
+  public: 
+};
+
+
+int main()
+{
+  C c;
+  return c.Get();
+}

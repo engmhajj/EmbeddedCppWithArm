@@ -1,0 +1,33 @@
+#include <numeric>
+#include <vector>
+
+int main()
+{
+  std::vector<int, std::allocator<int> > myVec = std::vector<int, std::allocator<int> >{std::initializer_list<int>{1, 2, 3, 4, 5}};
+      
+  class __lambda_8_57
+  {
+    public: 
+    inline /*constexpr */ int operator()(int fir, int sec) const
+    {
+      return fir * sec;
+    }
+    
+    using retType_8_57 = int (*)(int, int);
+    inline constexpr operator retType_8_57 () const noexcept
+    {
+      return __invoke;
+    };
+    
+    private: 
+    static inline /*constexpr */ int __invoke(int fir, int sec)
+    {
+      return __lambda_8_57{}.operator()(fir, sec);
+    }
+    
+    
+  };
+  
+  int fak = std::accumulate(myVec.begin(), myVec.end(), 1, __lambda_8_57{});
+  return 0;
+}

@@ -1,0 +1,165 @@
+#include <cstdio>
+#include <type_traits>
+#include <utility>
+
+class Point;
+
+template<>
+struct std::tuple_size<Point> : public std::integral_constant<unsigned long, 2>
+{
+};
+
+
+template<>
+struct std::tuple_element<0, Point>
+{
+  using type = double;
+};
+
+
+template<>
+struct std::tuple_element<1, Point>
+{
+  using type = double;
+};
+
+
+class Point
+{
+  
+  public: 
+  inline constexpr Point(double x, double y) noexcept
+  : mX{x}
+  , mY{y}
+  {
+  }
+  
+  inline constexpr double GetX() const noexcept
+  {
+    return this->mX;
+  }
+  
+  inline constexpr double GetY() const noexcept
+  {
+    return this->mY;
+  }
+  
+  inline constexpr void SetX(double x) noexcept
+  {
+    this->mX = x;
+  }
+  
+  inline constexpr void SetY(double y) noexcept
+  {
+    this->mY = y;
+  }
+  
+  template<size_t N>
+  inline constexpr decltype(auto) get() noexcept
+  {
+    if constexpr(N == 1) {
+      return this->GetX();
+    } else /* constexpr */ {
+      if constexpr(N == 0) {
+        return (this->mY);
+      } 
+      
+    } 
+    
+  }
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline constexpr double & get<0>() noexcept
+  {
+    if constexpr(false) {
+    } else /* constexpr */ {
+      if constexpr(true) {
+        return (this->mY);
+      } 
+      
+    } 
+    
+  }
+  #endif
+  
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline constexpr double get<1>() noexcept
+  {
+    if constexpr(true) {
+      return this->GetX();
+    } else /* constexpr */ {
+    } 
+    
+  }
+  #endif
+  
+  template<size_t N>
+  inline constexpr decltype(auto) get() const noexcept
+  {
+    if constexpr(N == 1) {
+      return this->GetX();
+    } else /* constexpr */ {
+      if constexpr(N == 0) {
+        return (this->mY);
+      } 
+      
+    } 
+    
+  }
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline constexpr const double & get<0>() const noexcept
+  {
+    if constexpr(false) {
+    } else /* constexpr */ {
+      if constexpr(true) {
+        return (this->mY);
+      } 
+      
+    } 
+    
+  }
+  #endif
+  
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline constexpr double get<1>() const noexcept
+  {
+    if constexpr(true) {
+      return this->GetX();
+    } else /* constexpr */ {
+    } 
+    
+  }
+  #endif
+  
+  
+  private: 
+  double mX;
+  double mY;
+  public: 
+};
+
+
+int main()
+{
+  Point p = Point{1, 2};
+  Point & __p64 = p;
+  double & x = __p64.get<0>();
+  double && y = __p64.get<1>();
+  printf("x:%lf y:%lf\n", p.GetX(), p.GetY());
+  ++x;
+  ++y;
+  printf("x:%lf y:%lf\n", x, y);
+  printf("x:%lf y:%lf\n", p.GetX(), p.GetY());
+  constexpr const Point p2 = Point{3, 4};
+  const Point & __p273 = p2;
+  const double & x2 = __p273.get<0>();
+  const double && y2 = static_cast<const double>(__p273.get<1>());
+  return 0;
+}

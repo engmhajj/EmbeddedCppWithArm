@@ -1,0 +1,26 @@
+struct A
+{
+  inline bool operator==(const A &) const
+  {
+    return true;
+  }
+  
+  inline bool operator!=(const A &)
+  {
+    return true;
+  }
+  
+};
+
+
+int main()
+{
+  A a = {};
+  if(static_cast<const A>(a).operator==(static_cast<const A>(a))) {
+  } 
+  
+  if(a.operator!=(static_cast<const A>(a))) {
+  } 
+  
+  return 0;
+}

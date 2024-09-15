@@ -1,0 +1,5 @@
+#include <source_location>
+
+std::source_location s = std::source_location::current(__builtin_source_location());
+
+unsigned int X = __builtin_LINE();

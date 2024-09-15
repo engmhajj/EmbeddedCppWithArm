@@ -1,0 +1,291 @@
+#include <coroutine>
+#include <cstdint>
+#include <exception>
+#include <new>
+#include <tuple>
+
+template<typename T>
+struct generator
+{
+  struct promise_type
+  {
+    T current_value;
+    inline std::suspend_always yield_value(T value)
+    {
+      this->current_value = value;
+      return {};
+    }
+    
+    inline std::suspend_always initial_suspend()
+    {
+      return {};
+    }
+    
+    inline std::suspend_always final_suspend() noexcept
+    {
+      return {};
+    }
+    
+    inline generator<T> get_return_object()
+    {
+      return generator<T>{{this}};
+    }
+    
+    inline void unhandled_exception()
+    {
+      std::terminate();
+    }
+    
+    inline void return_void()
+    {
+    }
+    
+    static inline auto get_return_object_on_allocation_failure()
+    {
+      return generator<T>{{nullptr}};
+    }
+    
+  };
+  
+  struct iterator
+  {
+    std::coroutine_handle<promise_type> hco;
+    bool done;
+    inline iterator(std::coroutine_handle<promise_type> hco, bool done)
+    : hco(hco)
+    , done{done}
+    {
+    }
+    
+    inline iterator & operator++()
+    {
+      this->hco.resume();
+      this->done = this->hco.done();
+      return *this;
+    }
+    
+    inline bool operator==(const iterator & o) const
+    {
+      return this->done == o.done;
+    }
+    
+    inline bool operator!=(const iterator & o) const
+    {
+      return !(*this == o);
+    }
+    
+    inline const T & operator*() const
+    {
+      return this->hco.promise().current_value;
+    }
+    
+    inline const T * operator->() const
+    {
+      return &(this->operator*());
+    }
+    
+  };
+  
+  inline iterator begin()
+  {
+    this->p.resume();
+    return {this->p, this->p.done()};
+  }
+  
+  inline iterator end()
+  {
+    return {this->p, true};
+  }
+  
+  inline generator(generator<T> && rhs)
+  : p(rhs.p)
+  {
+    rhs.p = nullptr;
+  }
+  
+  inline ~generator()
+  {
+    if(this->p) {
+      this->p.destroy();
+    } 
+    
+  }
+  
+  
+  private: 
+  inline explicit generator(promise_type * p)
+  : p(std::coroutine_handle<promise_type>::from_promise(*p))
+  {
+  }
+  
+  std::coroutine_handle<promise_type> p;
+};
+
+/* First instantiated from: Issue92.cpp:76 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct generator<unsigned int>
+{
+  struct promise_type
+  {
+    unsigned int current_value;
+    inline std::suspend_always yield_value(unsigned int value)
+    {
+      this->current_value = value;
+      return {};
+    }
+    
+    inline std::suspend_always initial_suspend()
+    {
+      return {};
+    }
+    
+    inline std::suspend_always final_suspend() noexcept
+    {
+      return {};
+    }
+    
+    inline generator<unsigned int> get_return_object()
+    {
+      return generator<unsigned int>{this};
+    }
+    
+    inline void unhandled_exception()
+    {
+      std::terminate();
+    }
+    
+    inline void return_void()
+    {
+    }
+    
+    static inline generator<unsigned int> get_return_object_on_allocation_failure()
+    {
+      return generator<unsigned int>{nullptr};
+    }
+    
+    // inline constexpr promise_type() noexcept = default;
+  };
+  
+  struct iterator
+  {
+    std::coroutine_handle<promise_type> hco;
+    bool done;
+    inline iterator(std::coroutine_handle<promise_type> hco, bool done)
+    : hco{std::coroutine_handle<promise_type>(hco)}
+    , done{done}
+    {
+    }
+    
+    inline iterator & operator++()
+    {
+      this->hco.resume();
+      this->done = this->hco.done();
+      return *this;
+    }
+    
+    inline bool operator==(const iterator & o) const
+    {
+      return static_cast<int>(this->done) == static_cast<int>(o.done);
+    }
+    
+    inline bool operator!=(const iterator & o) const
+    {
+      return !((*this).operator==(o));
+    }
+    
+    inline const unsigned int & operator*() const
+    {
+      return this->hco.promise().current_value;
+    }
+    
+    inline const unsigned int * operator->() const;
+    
+  };
+  
+  inline iterator begin()
+  {
+    this->p.resume();
+    return iterator{std::coroutine_handle<promise_type>(this->p), this->p.done()};
+  }
+  
+  inline iterator end()
+  {
+    return iterator{std::coroutine_handle<promise_type>(this->p), true};
+  }
+  
+  inline generator(generator<unsigned int> && rhs);
+  
+  inline ~generator() noexcept
+  {
+    if(this->p.operator bool()) {
+      this->p.destroy();
+    } 
+    
+  }
+  
+  
+  private: 
+  inline explicit generator(promise_type * p)
+  : p{std::coroutine_handle<promise_type>::from_promise(*p)}
+  {
+  }
+  
+  std::coroutine_handle<promise_type> p;
+  public: 
+  // inline constexpr generator(const generator<unsigned int> &) /* noexcept */ = delete;
+  // inline generator<unsigned int> & operator=(const generator<unsigned int> &) /* noexcept */ = delete;
+};
+
+#endif
+
+generator<unsigned int> fibonaccis()
+{
+  uint32_t a = 0;
+  uint32_t b = 1;
+  while(true) {
+    co_yield b;
+    std::tie(a, b).operator=(std::make_pair(b, a + b));
+    co_yield a;
+  }
+  
+}
+
+generator<unsigned int> take(generator<unsigned int> & g, uint32_t end)
+{
+  uint32_t i = 0;
+  {
+    generator<unsigned int> & __range1 = g;
+    generator<unsigned int>::iterator __begin1 = __range1.begin();
+    generator<unsigned int>::iterator __end1 = __range1.end();
+    for(; __begin1.operator!=(__end1); __begin1.operator++()) {
+      unsigned int e = __begin1.operator*();
+      if(i >= end) {
+        break;
+      } 
+      
+      co_yield e;
+      ++i;
+      co_yield i;
+    }
+    
+  }
+}
+
+uint32_t arr[10];
+int main()
+{
+  generator<unsigned int> g = fibonaccis();
+  uint32_t i = 0;
+  {
+    generator<unsigned int> && __range1 = take(g, 10);
+    generator<unsigned int>::iterator __begin1 = __range1.begin();
+    generator<unsigned int>::iterator __end1 = __range1.end();
+    for(; __begin1.operator!=(__end1); __begin1.operator++()) {
+      uint32_t e = __begin1.operator*();
+      arr[i++] = e;
+    }
+    
+  }
+  return 0;
+}

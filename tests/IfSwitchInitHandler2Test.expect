@@ -1,0 +1,26 @@
+int Open()
+{
+  return 0;
+}
+int Write()
+{
+  return 0;
+}
+
+int Foo()
+{
+  {
+    int ret = Open();
+    switch(ret) {
+      case 1: return 1;
+      case 2: return 0;
+    }
+  }
+  return -1;
+}
+
+int main()
+{
+  Foo();
+  return 0;
+}

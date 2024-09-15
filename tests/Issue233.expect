@@ -1,0 +1,14 @@
+struct C
+{
+  int & i;
+  inline C() /* noexcept */ = delete;
+  inline constexpr C(const C &) /* noexcept */ = default;
+};
+
+
+int main()
+{
+  int i;
+  C c = {i};
+  return 0;
+}

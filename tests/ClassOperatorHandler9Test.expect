@@ -1,0 +1,133 @@
+#define INSIGHTS_USE_TEMPLATE
+
+#include <vector>
+
+template<typename T>
+class MyVector
+{
+  std::vector<T> v;
+  
+  public: 
+  inline MyVector(const std::size_t n)
+  : v(n)
+  {
+  }
+  
+  inline MyVector(const std::size_t n, const double initialValue)
+  : v(n, initialValue)
+  {
+  }
+  
+  inline std::size_t size() const
+  {
+    return this->v.size();
+  }
+  
+  inline T operator[](const std::size_t i) const
+  {
+    return this->v[i];
+  }
+  
+  inline T & operator[](const std::size_t i)
+  {
+    return this->v[i];
+  }
+  
+};
+
+/* First instantiated from: ClassOperatorHandler9Test.cpp:34 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class MyVector<int>
+{
+  std::vector<int, std::allocator<int> > v;
+  
+  public: 
+  inline MyVector(const std::size_t n)
+  : v{std::vector<int, std::allocator<int> >(n)}
+  {
+  }
+  
+  inline MyVector(const std::size_t n, const double initialValue)
+  : v{std::vector<int, std::allocator<int> >(n, static_cast<const int>(initialValue))}
+  {
+  }
+  
+  inline std::size_t size() const
+  {
+    return this->v.size();
+  }
+  
+  inline int operator[](const std::size_t i) const
+  {
+    return this->v.operator[](i);
+  }
+  
+  inline int & operator[](const std::size_t i)
+  {
+    return this->v.operator[](i);
+  }
+  
+  // inline MyVector(MyVector<int> &&) noexcept = default;
+  // inline ~MyVector() noexcept = default;
+};
+
+#endif
+
+using vec_t = MyVector<int>;
+
+MyVector<int> operator+(const MyVector<int> & a, const MyVector<int> & b)
+{
+  MyVector<int> result = MyVector<int>(a.size()) /* NRVO variable */;
+  for(std::size_t s = 0; s <= a.size(); ++s) {
+    result.operator[](s) = (a.operator[](s) + b.operator[](s));
+  }
+  
+  return result;
+}
+
+template<typename T>
+MyVector<T> operator*(const MyVector<T> & a, const MyVector<T> & b)
+{
+  MyVector<T> result = a.size() /* NRVO variable */;
+  for(std::size_t s = 0; s <= a.size(); ++s) {
+    result[s] = operator+(a[s], b[s]);
+  }
+  
+  return result;
+}
+
+/* First instantiated from: ClassOperatorHandler9Test.cpp:70 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+MyVector<int> operator*<int>(const MyVector<int> & a, const MyVector<int> & b)
+{
+  MyVector<int> result = MyVector<int>(a.size()) /* NRVO variable */;
+  for(std::size_t s = 0; s <= a.size(); ++s) {
+    result.operator[](s) = (a.operator[](s) + b.operator[](s));
+  }
+  
+  return result;
+}
+#endif
+
+
+MyVector<int> Foo(const MyVector<int> & a, const MyVector<int> & b)
+{
+  MyVector<int> result = MyVector<int>{a.size()} /* NRVO variable */;
+  for(std::size_t s = 0; s <= a.size(); ++s) {
+    result.operator[](s) = (a.operator[](s) + b.operator[](s));
+  }
+  
+  return result;
+}
+
+int main()
+{
+  MyVector<int> vecA = MyVector<int>(4, 2);
+  MyVector<int> vecB = MyVector<int>(6, 7);
+  MyVector<int> res = Foo(vecA, vecB);
+  operator+(vecA, vecB);
+  operator*(vecA, vecB);
+  return 0;
+}
