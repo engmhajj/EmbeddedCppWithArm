@@ -534,7 +534,7 @@ endif ()
 
 # name the executable and all source files
 add_clang_tool(${PROJECT_NAME}
-        DesignPatterns/CreationalDesignPatterns/Builder/CustomComputerBuilder/main.cpp
+main.cpp
 )
 
 if (IS_MSVC_CL)

@@ -1,3 +1,10 @@
-/Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug/CMakeFiles/EmbeddedCppWithArm.dir
+/Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug/CMakeFiles/DesignPatterns.dir
+/Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug/CMakeFiles/doc.dir
+/Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug/CMakeFiles/tests.dir
+/Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug/CMakeFiles/update-tests.dir
+/Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug/CMakeFiles/docker-tests.dir
+/Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug/CMakeFiles/docker-coverage.dir
+/Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug/CMakeFiles/docker-build.dir
+/Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug/CMakeFiles/docker-build-run.dir
 /Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug/CMakeFiles/edit_cache.dir
 /Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug/CMakeFiles/rebuild_cache.dir

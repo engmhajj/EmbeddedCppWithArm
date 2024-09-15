@@ -11,11 +11,6 @@
 -- Found clang-tidy: /opt/homebrew/opt/llvm/bin/clang-tidy
 -- Could not find the program include-what-you-use
 -- Found ccache: /opt/homebrew/bin/ccache
-CMake Error: File /Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/docs/Doxyfile.in does not exist.
-CMake Error at CMakeLists.txt:611 (configure_file):
-  configure_file Problem configuring file
-
-
 -- Found Python3: /opt/homebrew/Frameworks/Python.framework/Versions/3.12/bin/python3.12. Target tests enabled.
 -- 
 -- [ Build summary ]
@@ -34,7 +29,7 @@ CMake Error at CMakeLists.txt:611 (configure_file):
 -- CMAKE_SOURCE_DIR      : /Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm
 -- CMAKE_BINARY_DIR      : /Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug
 -- Git repo url          : 
--- Git commit hash       : ed3b490524937fc29d8a9bc323f3a6988caa5220
+-- Git commit hash       : d32153b5a235517d8bc86519559828330bd7999c
 -- Debug                 : OFF
 -- Code Coverage         : OFF
 -- Static linking        : OFF
@@ -43,4 +38,6 @@ CMake Error at CMakeLists.txt:611 (configure_file):
 -- clang-tidy            : Off
 -- include-what-you-use  : Off
 -- 
--- Configuring incomplete, errors occurred!
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug
