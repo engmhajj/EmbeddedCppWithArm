@@ -1,6 +1,12 @@
 #include <iostream>
 
+enum class Ecolor
+{
+    R,G
+};
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    if constexpr(Ecolor const color1= Ecolor::R; color1== Ecolor::R) {
+        std::cout << "color is Res\n";
+    }
     return 0;
 }

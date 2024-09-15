@@ -28,8 +28,8 @@
 -- Clang resource dir    : 
 -- CMAKE_SOURCE_DIR      : /Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm
 -- CMAKE_BINARY_DIR      : /Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug
--- Git repo url          : 
--- Git commit hash       : d32153b5a235517d8bc86519559828330bd7999c
+-- Git repo url          : https://github.com/engmhajj/EmbeddedCppWithArm.git
+-- Git commit hash       : 68e196c7526ecbace0964e136216dd65831c08c3
 -- Debug                 : OFF
 -- Code Coverage         : OFF
 -- Static linking        : OFF
