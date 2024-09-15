@@ -1,0 +1,3 @@
+/Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug/CMakeFiles/EmbeddedCppWithArm.dir
+/Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/mohamadelhajhassan/CLionProjects/EmbeddedCppWithArm/cmake-build-debug/CMakeFiles/rebuild_cache.dir
